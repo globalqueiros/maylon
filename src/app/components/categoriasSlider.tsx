@@ -5,24 +5,29 @@ import { useEffect } from "react";
 
 const categorias = [
   {
-    nome: "99Pop",
-    descricao: "Com motoristas particulares em diversas cidades do Brasil",
-    imagem: "/car1.png",
+    nome: "Moto",
+    descricao: "Viagens rápidas e práticas com motoristas parceiros em diversas cidades.",
+    imagem: "/moto.png",
   },
   {
-    nome: "99Plus",
-    descricao: "Para quem quer um serviço e atendimento premium",
-    imagem: "/car2.png",
+    nome: "Maylon Basic",
+    descricao: "Uma opção econômica com conforto e praticidade para o dia a dia.",
+    imagem: "/maylonbasic.png",
   },
   {
-    nome: "99Comfort",
-    descricao: "Mais conforto para sua viagem",
-    imagem: "/car3.png",
+    nome: "Maylon Select",
+    descricao: "Mais conforto e qualidade para viagens especiais.",
+    imagem: "/maylonselect.png",
   },
   {
-    nome: "99Entrega",
-    descricao: "Envie e receba pacotes com rapidez",
-    imagem: "/car4.png",
+    nome: "Maylon Plus",
+    descricao: "Ideal para quem busca mais espaço e comodidade durante a viagem.",
+    imagem: "/maylonplus.png",
+  },
+  {
+    nome: "Maylon Space",
+    descricao: "Perfeito para grupos e viagens com maior espaço para passageiros e bagagens.",
+    imagem: "/maylonspace.png",
   },
 ];
 
@@ -30,71 +35,215 @@ export default function CategoriasSlider() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "start",
+    dragFree: false,
+    containScroll: "trimSnaps",
   });
 
   useEffect(() => {
     if (!emblaApi) return;
     const interval = setInterval(() => {
       emblaApi.scrollNext();
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [emblaApi]);
 
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900">
-            Parece <span className="font-extrabold">incrível</span>, né? E é!
-          </h2>
-          <p className="mt-4 text-gray-600 max-w-md">
-            Para fazer isso acontecer, oferecemos várias opções de serviço
-            dentro do 99App
-          </p>
-        </div>
-        <div className="relative">
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-10">
-              {categorias.map((item, index) => (
-                <div
-                  key={index}
-                  className="min-w-[260px] bg-white p-6 rounded-xl shadow-sm"
-                >
-                  <Image
-                    src={item.imagem}
-                    alt={item.nome}
-                    width={200}
-                    height={120}
-                    className="mx-auto mb-4"
-                  />
-                  <h3 className="font-semibold text-lg">{item.nome}</h3>
-                  <p className="text-gray-600 text-sm mt-2">
-                    {item.descricao}
-                  </p>
+    <>
+      <section className="bg-white py-8 sm:py-20 md:py-8 lg:py-14 xl:py-12 2xl:py-12">
+        <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 xl:gap-20 items-center">
+            <div className="lg:col-span-4 text-center lg:text-left">
+              <span
+                className="
+                  inline-flex
+                  items-center
+                  rounded-full
+                  bg-teal-50
+                  px-4
+                  sm:px-5
+                  py-2
+                  text-xs
+                  sm:text-sm
+                  font-semibold
+                  text-teal-700
+                  mb-5
+                "
+              >
+                Serviços disponíveis
+              </span>
+              <h2
+                className="
+                  font-bold
+                  text-gray-900
+                  leading-tight
+                  text-3xl
+                  sm:text-3xl
+                  md:text-4xl
+                  lg:text-2xl
+                  xl:text-3xl
+                  2xl:text-4xl
+                "
+              >
+                Parece{" "}
+                <span className="text-[#3bab88]">
+                  incrível
+                </span>
+                , né? E é!
+              </h2>
+              <p
+                className="
+                  mt-3
+                  text-black
+                  leading-relaxed
+                  text-sm
+                  sm:text-sm
+                  md:text-sm
+                  lg:text-sm
+                  xl:text-sm
+                  2xl:text-sm
+                  max-w-xl
+                  mx-auto
+                  lg:mx-0
+                  text-justify
+                "
+              >
+                Maylon oferece diferentes categorias de carros para atender às
+                necessidades do dia a dia com mais praticidade, conforto e eficiência.
+              </p>
+            </div>
+            <div className="lg:col-span-8 relative">
+              <div
+                ref={emblaRef}
+                className="overflow-hidden">
+                <div className="flex items-stretch -ml-6">
+                  {categorias.map((item, index) => (
+                    <div
+                      key={index}
+                      className="
+                        pl-6
+                        flex-[0_0_100%]
+                        sm:flex-[0_0_80%]
+                        md:flex-[0_0_50%]
+                        lg:flex-[0_0_50%]
+                        xl:flex-[0_0_33.333%]
+                        2xl:flex-[0_0_33.333%]"
+                    >
+                      <div
+                        className="
+                          h-full
+                          bg-white
+                          border
+                          border-gray-100
+                          rounded-[32px]
+                          shadow-lg
+                          hover:shadow-2xl
+                          transition-all
+                          duration-300
+                          overflow-hidden
+                          flex
+                          flex-col
+                        "
+                      >
+                        <div
+                          className="
+                            h-56
+                            sm:h-64
+                            xl:h-72
+                            bg-gray-50
+                            flex
+                            items-center
+                            justify-center
+                            p-6
+                          "
+                        >
+                          <Image
+                            src={item.imagem}
+                            alt={item.nome}
+                            width={240}
+                            height={240}
+                            className="
+                              object-contain
+                              max-w-full
+                              max-h-full
+                              transition-transform
+                              duration-300
+                              hover:scale-105
+                            "
+                          />
+                        </div>
+                        <div className="flex-1 p-6">
+                          <h3 className="text-base font-bold text-gray-900">
+                            {item.nome}
+                          </h3>
+                          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                            {item.descricao}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <button
+                onClick={() => emblaApi?.scrollPrev()}
+                className="
+                  hidden lg:flex
+                  absolute
+                  -left-8
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-white
+                  border
+                  border-gray-200
+                  shadow-xl
+                  hover:bg-[#3bab88]
+                  hover:text-white
+                  transition-all
+                "
+              >
+                ←
+              </button>
+              <button
+                onClick={() => emblaApi?.scrollNext()}
+                className="
+                  hidden lg:flex
+                  absolute
+                  -right-8
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-white
+                  border
+                  border-gray-200
+                  shadow-xl
+                  hover:bg-[#3bab88]
+                  hover:text-white
+                  transition-all
+                "
+              >
+                →
+              </button>
             </div>
           </div>
-          <button
-            onClick={() => emblaApi?.scrollPrev()}
-            className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
-          >
-            ←
-          </button>
-          <button
-            onClick={() => emblaApi?.scrollNext()}
-            className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-gray-600 text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
-          >
-            →
-          </button>
+          <div className="mt-8 flex justify-center gap-2">
+            <div className="h-2.5 w-10 rounded-full bg-[#3bab88]" />
+            <div className="h-2.5 w-2.5 rounded-full bg-[#3bab88]/40" />
+            <div className="h-2.5 w-2.5 rounded-full bg-[#3bab88]/40" />
+            <div className="h-2.5 w-2.5 rounded-full bg-[#3bab88]/40" />
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center mt-10 gap-2">
-        <div className="w-6 h-2 bg-[#3bab88] rounded-full"></div>
-        <div className="w-2 h-2 bg-[#3bab88] rounded-full"></div>
-        <div className="w-2 h-2 bg-[#3bab88] rounded-full"></div>
-        <div className="w-2 h-2 bg-[#3bab88] rounded-full"></div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
