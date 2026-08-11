@@ -10,14 +10,18 @@ export default function VLibras() {
         className="enabled"
       >
         <div
-          {...({ "vw-access-button": "true" } as React.HTMLAttributes<HTMLDivElement>)}
+          {...({
+            "vw-access-button": "true",
+          } as React.HTMLAttributes<HTMLDivElement>)}
           className="active"
-        ></div>
+        />
 
         <div
-          {...({ "vw-plugin-wrapper": "true" } as React.HTMLAttributes<HTMLDivElement>)}
+          {...({
+            "vw-plugin-wrapper": "true",
+          } as React.HTMLAttributes<HTMLDivElement>)}
         >
-          <div className="vw-plugin-top-wrapper"></div>
+          <div className="vw-plugin-top-wrapper" />
         </div>
       </div>
 
@@ -26,7 +30,6 @@ export default function VLibras() {
         strategy="afterInteractive"
         onLoad={() => {
           if (typeof window !== "undefined" && "VLibras" in window) {
-            // @ts-expect-error VLibras é injetado pelo script externo
             new window.VLibras.Widget(
               "https://vlibras.gov.br/app"
             );
