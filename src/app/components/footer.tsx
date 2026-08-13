@@ -7,6 +7,7 @@ import {
   faGooglePlay,
   faWhatsapp,
   faTelegram,
+  faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
@@ -30,16 +31,20 @@ export default function Footer() {
               <div className="flex flex-wrap gap-3">
                 {[
                   {
-                    href: "https://www.facebook.com/maylonapp/",
-                    icon: faFacebook,
-                  },
-                  {
                     href: "https://www.instagram.com/maylonapp",
                     icon: faInstagram,
                   },
                   {
                     href: "https://wa.me/5511974204958",
                     icon: faWhatsapp,
+                  },
+                  {
+                    href: "https://www.tiktok.com/@maylonapp",
+                    icon: faTiktok,
+                  },
+                  {
+                    href: "https://www.facebook.com/maylonapp/",
+                    icon: faFacebook,
                   },
                   {
                     href: "https://t.me/maylontrip_bot",
