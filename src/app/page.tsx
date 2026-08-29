@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { MapPin, Calendar, Car, X, Play, ArrowUpRight } from "lucide-react";
+import { MapPin, Calendar, Car, X, Play, ArrowUpRight, ArrowRight, CheckCircle2, CarFront, ShoppingBag } from "lucide-react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-white py-10 sm:py-10 md:py-10 lg:py-10 xl:py-10 2xl:py-10">
+      <section className="bg-white pb-0 py-10 sm:py-10 md:py-10 lg:py-10 xl:py-10 2xl:py-10">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-8">
             <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-medium text-emerald-700">
@@ -198,6 +198,33 @@ export default function Home() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      </section>
+      <section className="relative my-4 overflow-hidden py-0 sm:py-0 lg:py-0">
+        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-96 rounded-full bg-[#38af8f]/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#38af8f]/10 blur-3xl" />
+        <div className="relative mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
+          <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px]">
+            <section className="relative w-full overflow-hidden">
+              <div className="mx-auto flex w-full justify-center">
+                <Image
+                  src="/maylon_store.png"
+                  alt="Maylon Store"
+                  width={1820}
+                  height={800}
+                  priority
+                  className="
+                    h-auto
+                    w-full
+                    max-w-[1300px]
+                    object-contain
+                    rounded-3xl
+                    mb-4
+                  "
+                />
+              </div>
+            </section>
+          </div>
         </div>
       </section>
       <section className="bg-gradient-to-br from-[#35a989] via-[#2f9d80] to-[#58d68d] py-10 sm:py-10 md:py-10 lg:py-12 xl:py-12 2xl:py-14">
@@ -528,6 +555,63 @@ export default function Home() {
         </div>
       )
       }
+      <section className="relative my-6 overflow-hidden bg-gradient-to-br from-[#35a989] via-[#0c664d] to-[#0ec996] px-6 py-8 sm:px-10 lg:px-14">
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        <div className="relative z-10 flex flex-col items-center justify-between gap-10 lg:flex-row">
+          <div className="max-w-2xl text-center lg:text-left">
+            <span className="inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+              Seja um parceiro Maylon
+            </span>
+            <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl">
+              Pronto para ganhar mais
+              <br className="hidden sm:block" />
+              com a Maylon?
+            </h2>
+            <p className="my-3 max-w-xl text-base leading-7 text-emerald-50 sm:text-base">
+              Cadastre-se como motorista parceiro e tenha acesso a uma
+              plataforma feita para oferecer mais segurança, praticidade
+              e oportunidades para você.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-4 lg:justify-start">
+              <div className="flex items-center gap-2 text-sm font-medium text-white">
+                <CheckCircle2 className="h-5 w-5" />
+                Cadastro rápido
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-white">
+                <CheckCircle2 className="h-5 w-5" />
+                Mais oportunidades
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-white">
+                <CheckCircle2 className="h-5 w-5" />
+                Segurança
+              </div>
+            </div>
+          </div>
+          <div className="w-full max-w-md rounded-[28px] bg-white p-7 shadow-2xl sm:p-8">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100">
+              <CarFront className="h-7 w-7 text-emerald-600" />
+            </div>
+            <h3 className="mt-5 text-2xl font-bold text-slate-900">
+              Quero ser motorista
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Faça seu cadastro e comece sua jornada como motorista
+              parceiro Maylon.
+            </p>
+            <Link
+              href="/quero_ser_motorista"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-4xl bg-emerald-600 px-6 py-4 text-base font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-lg"
+            >
+              Cadastrar-me como motorista
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+            <p className="mt-4 text-center text-xs text-slate-400">
+              Leva poucos minutos para iniciar seu cadastro.
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

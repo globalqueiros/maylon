@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #ffffff;
@@ -58,7 +59,7 @@ label {
   transition: all .5s ease;
 }
 
-.swal2-title{
+.swal2-title {
   font-size: 1.5rem;
 }
 
@@ -71,15 +72,35 @@ label {
 }
 
 .modal-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,.18);
+  background: rgba(255, 255, 255, .18);
   border-radius: 999px;
 }
 
 .modal-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,.35);
+  background: rgba(255, 255, 255, .35);
 }
 
 .modal-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.18) transparent;
+  scrollbar-color: rgba(255, 255, 255, .18) transparent;
+}
+
+@keyframes arrow-bounce {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(7px);
+  }
+}
+
+.arrow-bounce {
+  transition: transform 0.3s ease;
+}
+
+.group:hover .arrow-bounce {
+  animation: arrow-bounce 0.7s ease-in-out infinite;
 }

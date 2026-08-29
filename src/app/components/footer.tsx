@@ -88,10 +88,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-2xl lg:text-xl xl:text-lg 2xl:text-lg font-bold mb-3">
+            <h3 className="text-2xl lg:text-xl xl:text-lg 2xl:text-lg font-bold mb-2.5">
               Empresa
             </h3>
-            <ul className="space-y-3 md:space-y-3 lg:space-y-2 xl:space-y-2 2xl:space-y-3 text-sm sm:text-base md:text-sm lg:text-sm xl:text-sm 2xl:text-sm">
+            <ul className="space-y-2 md:space-y-2 lg:space-y-2 xl:space-y-2 2xl:space-y-2 text-sm sm:text-base md:text-sm lg:text-sm xl:text-sm 2xl:text-sm">
               <li>
                 <Link
                   href="/quem_somos"
@@ -127,10 +127,10 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-xl lg:text-lg xl:text-lg 2xl:text-lg font-bold mb-3">
+            <h3 className="text-xl lg:text-lg xl:text-lg 2xl:text-lg font-bold mb-2.5">
               Contato
             </h3>
-            <ul className="space-y-3 md:space-y-3 lg:space-y-2 xl:space-y-2 2xl:space-y-3 text-sm sm:text-base md:text-sm lg:text-sm xl:text-sm 2xl:text-sm">
+            <ul className="space-y-2 md:space-y-2 lg:space-y-2 xl:space-y-2 2xl:space-y-2 text-sm sm:text-base md:text-sm lg:text-sm xl:text-sm 2xl:text-sm">
               <li>
                 <Link
                   href="/suporte"
