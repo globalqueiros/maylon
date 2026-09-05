@@ -307,7 +307,7 @@ export default function Page() {
             >
               Mobilidade que{" "}
               <span className="text-teal-500">
-                te <br/> leva mais longe.
+                te <br /> leva mais longe.
               </span>
             </h1>
             <p

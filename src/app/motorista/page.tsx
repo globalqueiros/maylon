@@ -162,6 +162,30 @@ export default function Vantagens99() {
           </div>
         </div>
       </section>
+      <section className="relative w-full overflow-hidden bg-teal-500 p-7">
+        <div className="hidden w-full md:block">
+          <Image
+            src="/maylon_aluguel_celular.png"
+            alt="Seu celular profissional para trabalhar como motorista Maylon"
+            width={1920}
+            height={768}
+            priority
+            sizes="100vw"
+            className="h-auto w-full object-cover rounded-2xl"
+          />
+        </div>
+        <div className="relative block h-[600px] w-full md:hidden">
+          <Image
+            src="/maylon_aluguel_celular.png"
+            alt="Aluguel de celular Maylon"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#06221e] via-[#06221e]/20 to-transparent" />
+        </div>
+      </section>
       <section className="bg-gradient-to-br from-[#35a989] via-[#2f9d80] to-[#58d68d] py-10 sm:py-10 md:py-10 lg:py-12 xl:py-12 2xl:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-8 xl:px-10 2xl:px-12">
           <div className="overflow-hidden rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl sm:rounded-[32px] lg:rounded-[40px]">

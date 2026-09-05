@@ -133,7 +133,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-white pb-0 py-10 sm:py-10 md:py-10 lg:py-10 xl:py-10 2xl:py-10">
+      <section className="bg-white pb-4 py-10 sm:py-10 sm:pb-5 md:py-10 md:pb-4 lg:py-10 lg:pb-3 xl:py-10 xl:pb-4 2xl:py-10 2xl:pb-0">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-8">
             <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-medium text-emerald-700">
@@ -200,31 +200,28 @@ export default function Home() {
           </Swiper>
         </div>
       </section>
-      <section className="relative my-4 overflow-hidden py-0 sm:py-0 lg:py-0">
-        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-96 rounded-full bg-[#38af8f]/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#38af8f]/10 blur-3xl" />
-        <div className="relative mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
-          <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px]">
-            <section className="relative w-full overflow-hidden">
-              <div className="mx-auto flex w-full justify-center">
-                <Image
-                  src="/maylon_store.png"
-                  alt="Maylon Store"
-                  width={1820}
-                  height={800}
-                  priority
-                  className="
-                    h-auto
-                    w-full
-                    max-w-[1300px]
-                    object-contain
-                    rounded-3xl
-                    mb-4
-                  "
-                />
-              </div>
-            </section>
-          </div>
+      <section className="relative w-full overflow-hidden bg-teal-500 p-7">
+        <div className="hidden w-full md:block">
+          <Image
+            src="/maylon_store.jpeg"
+            alt="Seu celular profissional para trabalhar como motorista Maylon"
+            width={1920}
+            height={768}
+            priority
+            sizes="100vw"
+            className="h-auto w-full object-cover rounded-2xl"
+          />
+        </div>
+        <div className="relative block h-[600px] w-full md:hidden">
+          <Image
+            src="/maylon_store.jpeg"
+            alt="Aluguel de celular Maylon"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#06221e] via-[#06221e]/20 to-transparent" />
         </div>
       </section>
       <section className="bg-gradient-to-br from-[#35a989] via-[#2f9d80] to-[#58d68d] py-10 sm:py-10 md:py-10 lg:py-12 xl:py-12 2xl:py-14">

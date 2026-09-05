@@ -10,7 +10,9 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPix } from "@fortawesome/free-brands-svg-icons";
-import Cartao from "../../../app/components/StripeProvider"
+import StripeProvider from "../../../app/components/StripeProvider";
+import CartaoForm from "../../../app/components/CartaoForm";
+
 
 type PaymentMethod = "pix" | "cartao_business" | "";
 
@@ -768,7 +770,7 @@ export default function CadastroEmpresa() {
                             <div className="fixed right-5 top-5 z-[9999] w-[360px] max-w-[calc(100vw-2rem)] animate-[slideIn_.3s_ease-out]">
                                 <div className="relative overflow-hidden rounded-xl border border-[#49aa95]/20 bg-white shadow-2xl">
                                     <div className="absolute left-0 top-0 h-full w-1 bg-[#49aa95]" />
-                                    <div className="flex items-start gap-3 p-4">           
+                                    <div className="flex items-start gap-3 p-4">
                                         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#49aa95]/10 text-[#49aa95]">
                                             <svg
                                                 className="h-5 w-5"
@@ -779,7 +781,7 @@ export default function CadastroEmpresa() {
                                             >
                                                 <path d="M5 12l4 4L19 6" />
                                             </svg>
-                                        </div>                  
+                                        </div>
                                         <div className="min-w-0 flex-1">
                                             <p className="text-xs font-bold text-[#287c69]">
                                                 Sucesso
@@ -1266,7 +1268,10 @@ export default function CadastroEmpresa() {
                                     description="O Cartão Business foi vinculado à empresa:"
                                 >
 
-                                    <Cartao />
+                                    <StripeProvider>
+                                        <CartaoForm />
+                                    </StripeProvider>
+
 
                                     <div className="mt-4 flex items-center gap-2 rounded-xl bg-[#49aa95]/10 px-4 py-3">
 
