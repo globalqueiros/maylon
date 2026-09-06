@@ -12,7 +12,7 @@ import {
     MessageSquare,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import HuggyChat from "../../lib/huggychat";
+import HuggyChat from "../../lib/NvoipWidget";
 
 export default function Home() {
     const [showModal, setShowModal] = useState(false);
