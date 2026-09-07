@@ -250,7 +250,7 @@ export default function SegurancaPage() {
                                     motoristas, proporcionamos mais proteção e
                                     confiança do embarque ao destino final.
                                 </p>
-                            </div>
+                            </div
 
                             <div className="mt-4 grid grid-cols-2 gap-4">
                                 <div className="rounded-2xl border border-pink-100 bg-white p-5 shadow-sm">
