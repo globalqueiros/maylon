@@ -110,7 +110,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/dashboard"
+                  href="/cidade"
                   className="hover:text-zinc-200 transition"
                 >
                   Cidades
@@ -118,7 +118,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/motoristas"
+                  href="/motorista"
                   className="hover:text-zinc-200 transition"
                 >
                   Motoristas

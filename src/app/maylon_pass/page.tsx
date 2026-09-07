@@ -26,7 +26,7 @@ const plans = [
   {
     id: "plus",
     name: "Plus",
-    price: "39,90",
+    price: "40,00",
     description: "Mais benefícios para uma experiência completa.",
     benefits: [
       "Todos os benefícios do Básico",

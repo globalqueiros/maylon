@@ -81,7 +81,7 @@ export default function Vantagens99() {
               <span className="block text-teal-500">com a Maylon</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-black sm:text-base md:max-w-2xl md:text-justify md:text-sm lg:mx-0 lg:text-sm lg:leading-7 xl:text-base 2xl:text-base">
-              Explore uma nova era da mobilidade urbana, com mais tecnologia, segurança e oportunidades reais para motoristas parceiros. O futuro aponta para uma frota cada vez mais sustentável e inteligente, com veículos elétricos e autônomos operados por inteligência artificial, sensores avançados e sistemas de navegação automatizados.
+              Explore uma nova era da mobilidade urbana, com mais tecnologia, segurança e oportunidades reais para motoristas parceiros.
             </p>
           </div>
         </div>
