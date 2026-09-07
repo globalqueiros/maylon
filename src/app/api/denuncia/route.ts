@@ -4,7 +4,7 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 
-import db from "../../../lib/db";
+import { db } from "../../../lib/db";
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION!,
