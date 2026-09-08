@@ -54,7 +54,7 @@ export default function SegurancaPage() {
     return (
         <main className="overflow-hidden">
             {/* HERO */}
-            <section className="relative isolate min-h-[680px] overflow-hidden bg-slate-950 lg:min-h-[720px]">
+            <section className="relative isolate min-h-[540px] overflow-hidden bg-slate-950 lg:min-h-[720px]">
                 {/* Background */}
                 <div className="absolute inset-0 -z-20">
                     <Image
@@ -74,7 +74,7 @@ export default function SegurancaPage() {
                 <div className="absolute -left-32 top-1/4 -z-10 h-[420px] w-[420px] rounded-full bg-emerald-500/10 blur-[120px]" />
                 <div className="absolute right-0 top-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-emerald-400/10 blur-[140px]" />
 
-                <div className="mx-auto flex min-h-[680px] max-w-7xl items-center px-5 py-0 sm:px-8 lg:min-h-[720px] lg:px-8 lg:py-0">
+                <div className="mx-auto flex min-h-[540px] max-w-7xl items-center px-5 py-0 sm:px-8 lg:min-h-[720px] lg:px-8 lg:py-0">
                     <div className="grid w-full items-center lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 xl:gap-4">
                         {/* Content */}
                         <div className="relative z-10 max-w-2xl">
