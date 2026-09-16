@@ -414,9 +414,14 @@ export default function Page() {
                 Maylon Pass
               </h2>
               <div className="mt-4 flex items-end gap-2 sm:mt-5">
-                <span className="text-2xl font-black text-teal-400 sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl">
-                  R$ 59,99
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-xs text-white sm:text-sm">
+                    A partir de
+                  </span>
+                  <span className="text-2xl font-black text-teal-400 sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl">
+                    R$ 19,90
+                  </span>
+                </div>
                 <span className="mb-0 text-xs text-white sm:mb-0 sm:text-sm">
                   / Mês
                 </span>

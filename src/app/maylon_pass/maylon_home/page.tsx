@@ -95,7 +95,7 @@ export default function TermosDeUsoPage() {
                                     </p>
 
                                     <h2 className="text-xl font-black text-slate-950">
-                                        Termos de Uso — Seguro Home
+                                        Termos de Uso — Maylon Home
                                     </h2>
                                 </div>
                             </div>
@@ -386,7 +386,7 @@ export default function TermosDeUsoPage() {
                                 title="DO CANCELAMENTO E DA SUSPENSÃO DOS SERVIÇOS"
                             >
                                 <p className="text-justify text-black">
-                                    9.1. A utilização dos benefícios e serviços disponibilizados pelo Maylon Seguro Home poderá ser suspensa ou interrompida, observadas as disposições deste Termo de Uso e a legislação aplicável, nas hipóteses de:
+                                    9.1. A utilização dos benefícios e serviços disponibilizados pelo Maylon Maylon Home poderá ser suspensa ou interrompida, observadas as disposições deste Termo de Uso e a legislação aplicável, nas hipóteses de:
                                 </p>
 
                                 <ul className="list-disc space-y-2 pl-6 text-justify text-black">
@@ -429,7 +429,7 @@ export default function TermosDeUsoPage() {
                                 title="DA PROTEÇÃO DE DADOS PESSOAIS"
                             >
                                 <p className="text-justify text-black">
-                                    10.1. O tratamento dos dados pessoais dos assinantes realizado pela MAYLON no âmbito do Maylon Seguro Home será efetuado em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD), bem como com as demais normas legais e regulamentares aplicáveis.
+                                    10.1. O tratamento dos dados pessoais dos assinantes realizado pela MAYLON no âmbito do Maylon Maylon Home será efetuado em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD), bem como com as demais normas legais e regulamentares aplicáveis.
                                 </p>
 
                                 <p className="text-justify text-black">
@@ -470,7 +470,7 @@ export default function TermosDeUsoPage() {
                                 </p>
 
                                 <p className="text-justify text-black">
-                                    11.3. A continuidade da utilização dos serviços e benefícios disponibilizados pelo Maylon Seguro Home após a entrada em vigor da versão atualizada deste Termo será considerada manifestação de ciência e aceitação das alterações realizadas, ressalvados os direitos assegurados ao assinante pela legislação vigente.
+                                    11.3. A continuidade da utilização dos serviços e benefícios disponibilizados pelo Maylon Maylon Home após a entrada em vigor da versão atualizada deste Termo será considerada manifestação de ciência e aceitação das alterações realizadas, ressalvados os direitos assegurados ao assinante pela legislação vigente.
                                 </p>
 
                                 <p className="text-justify text-black">
@@ -495,7 +495,7 @@ export default function TermosDeUsoPage() {
                                 </p>
 
                                 <p className="text-justify text-black">
-                                    12.4. Este Termo de Uso deverá ser interpretado em conjunto com os demais documentos, políticas e condições que integrem ou complementem a contratação do Maylon Seguro Home, incluindo, quando aplicável, a Política de Privacidade e demais documentos disponibilizados pela MAYLON.
+                                    12.4. Este Termo de Uso deverá ser interpretado em conjunto com os demais documentos, políticas e condições que integrem ou complementem a contratação do Maylon Maylon Home, incluindo, quando aplicável, a Política de Privacidade e demais documentos disponibilizados pela MAYLON.
                                 </p>
 
                                 <p className="text-justify text-black">
@@ -528,7 +528,7 @@ export default function TermosDeUsoPage() {
                                         </h3>
 
                                         <p className="mt-2 text-sm leading-6 text-slate-600">
-                                            Ao prosseguir com a contratação do Seguro Home, o assinante declara, para todos os fins de direito, que teve acesso prévio a estes Termos de Uso, realizou sua leitura integral, compreendeu seu conteúdo e manifesta sua expressa concordância com todas as disposições neles estabelecidas.
+                                            Ao prosseguir com a contratação do Maylon Home, o assinante declara, para todos os fins de direito, que teve acesso prévio a estes Termos de Uso, realizou sua leitura integral, compreendeu seu conteúdo e manifesta sua expressa concordância com todas as disposições neles estabelecidas.
                                         </p>
                                     </div>
                                 </div>
@@ -542,11 +542,11 @@ export default function TermosDeUsoPage() {
                         </p>
 
                         <Link
-                            href="/seguro-home"
+                            href="/maylon_home"
                             className="inline-flex items-center gap-2 rounded-xl bg-[#35a989] px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#27866c] hover:shadow-lg"
                         >
                             <ArrowLeft className="h-4 w-4" />
-                            Voltar para o Seguro Home
+                            Voltar para o Maylon Home
                         </Link>
                     </div>
                 </div>
