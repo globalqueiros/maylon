@@ -346,14 +346,9 @@ export default function QuemSomos() {
                 <div
                     className="
                         relative
-                        h-[420px]
-                        sm:h-[500px]
-                        md:h-[600px]
-                        lg:h-[680px]
-                        xl:h-[760px]
-                        2xl:h-[850px]
+                        h-[580px]
                         "
-                    >
+                >
                     <Image
                         src="/diretoraexecultiva.png"
                         alt="Carta da Diretora Geral"
@@ -431,11 +426,11 @@ export default function QuemSomos() {
                                         bg-[#35a989]
                                         px-6
                                         sm:px-8
-                                        lg:px-10
-                                        py-3
-                                        sm:py-4
+                                        lg:px-8
+                                        py-2
+                                        sm:py-3
                                         text-sm
-                                        sm:text-base
+                                        sm:text-sm
                                         lg:text-lg
                                         font-semibold
                                         text-white
