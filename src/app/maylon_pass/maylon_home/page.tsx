@@ -552,20 +552,23 @@ export default function TermosDeUsoPage() {
                 </div>
             </section>
 
-            <footer className="border-t border-slate-200 bg-white px-4 py-5">
-                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 sm:flex-row">
-                    <div className="flex items-center gap-2">
-                        <Image
-                            src="/logo.png"
-                            alt="Banner Maylon"
-                            width={200}
-                            height={500}
-                            className="rounded-2xl object-cover"
-                        />
-                    </div>
+            <footer className="border-t border-slate-200 bg-white">
+                <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+                    <Image
+                        src="/logo.png"
+                        alt="Logo Maylon"
+                        width={120}
+                        height={40}
+                        className="mx-auto h-9 w-auto object-contain"
+                    />
 
-                    <p className="text-xs text-slate-400">
-                        © {new Date().getFullYear()} Maylon. Todos os direitos reservados.
+                    <p className="mt-4 text-sm text-slate-500">
+                        © {new Date().getFullYear()} Maylon. Todos os direitos
+                        reservados.
+                    </p>
+
+                    <p className="mt-1 text-xs text-slate-400">
+                        Maylon Van Escolar
                     </p>
                 </div>
             </footer>

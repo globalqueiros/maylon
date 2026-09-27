@@ -1,577 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
     ArrowLeft,
     CheckCircle2,
     FileText,
-    Home,
     ShieldCheck,
 } from "lucide-react";
 import { type ReactNode } from "react";
-import Image from "next/image";
 
-export default function TermosDeUsoPage() {
-    return (
-        <main className="min-h-screen bg-[#f7faf9] text-slate-900">
-            <header className="border-b border-slate-200 bg-white">
-                <div className="mx-auto flex max-w-8xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-                    <Link
-                        href="/maylon_pass"
-                        className="flex items-center gap-2 text-sm font-bold text-slate-600 transition-colors hover:text-[#35a989]"
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                        Voltar
-                    </Link>
-
-                    <div className="flex items-center gap-2">
-                        <Image
-                            src="/logo.png"
-                            alt="Banner Maylon"
-                            width={150}
-                            height={500}
-                            className="rounded-2xl object-cover"
-                        />
-                    </div>
-                </div>
-            </header>
-
-            <section className="relative overflow-hidden bg-white">
-                <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#35a989]/10 blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#35a989]/10 blur-3xl" />
-
-                <div className="relative mx-auto max-w-5xl px-4 py-8 text-center sm:px-6 sm:py-10">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#35a989]/10">
-                        <FileText className="h-8 w-8 text-[#35a989]" />
-                    </div>
-
-                    <p className="mt-2 text-sm font-bold uppercase tracking-[0.2em] text-[#35a989]">
-                        Maylon Home
-                    </p>
-
-                    <h1 className="my-3 text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
-                        Termos de Uso - Maylon
-                    </h1>
-
-                    <p className="mx-auto mt-0 max-w-2xl text-sm leading-6 text-slate-500">
-                        Recomendamos a leitura atenta e integral dos presentes Termos de Uso e das condições aplicáveis à contratação e utilização dos serviços disponibilizados pelo Maylon Home.
-                    </p>
-
-                    <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#35a989]/20 bg-[#35a989]/5 px-4 py-2 text-xs font-semibold text-[#27866c]">
-                        <ShieldCheck className="h-4 w-4" />
-                        Documento de referência para utilização do serviço
-                    </div>
-                </div>
-            </section>
-
-            <section className="px-4 py-10 sm:px-6 sm:py-8 lg:px-8">
-                <div className="mx-auto max-w-4xl">
-                    <div className="mb-8 rounded-2xl border border-[#35a989]/20 bg-[#35a989]/5 p-5">
-                        <div className="flex gap-3">
-                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#35a989]" />
-
-                            <div>
-                                <h2 className="font-bold text-slate-900">
-                                    Antes de Continuar
-                                </h2>
-
-                                <p className="mt-0.5 text-sm leading-6 text-slate-600">
-                                    Recomenda-se a leitura integral deste documento previamente à contratação ou à utilização dos serviços disponibilizados pelo Maylon Home.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                        <div className="border-b border-slate-200 bg-slate-50 px-6 py-7 sm:px-10">
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#35a989]">
-                                    <FileText className="h-5 w-5 text-white" />
-                                </div>
-
-                                <div>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-[#35a989]">
-                                        Documento
-                                    </p>
-
-                                    <h2 className="text-xl font-black text-slate-950">
-                                        Termos de Uso — Maylon Home
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="px-6 py-4 text-black sm:px-10 sm:py-6">
-                            <p className="m-0 p-0 text-sm leading-7 text-black text-justify">
-                                O presente Termo de Uso tem por objeto estabelecer as condições, regras, direitos, deveres e responsabilidades que regerão a contratação, disponibilização e utilização dos serviços de assistência residencial integrantes do programa “Maylon Home”, doravante denominado simplesmente “Programa”, administrado pela MAYLON e disponibilizado aos seus assinantes regularmente cadastrados e adimplentes, observadas as condições previstas neste instrumento e na legislação aplicável.
-                            </p>
-
-                            <p className="m-0 mt-3 p-0 text-sm leading-7 text-black text-justify">
-                                A adesão ao Programa implicará a declaração expressa do usuário titular de que teve prévio e amplo acesso ao presente Termo de Uso, procedeu à sua leitura e compreensão integral e concorda, de forma livre e inequívoca, com todas as suas disposições, obrigando-se a cumpri-las durante a vigência de sua adesão ao Programa.
-                            </p>
-
-                            <TermSection
-                                number="01"
-                                title="DO OBJETO E DA NATUREZA DO PROGRAMA"
-                            >
-                                <p className="text-justify text-black">
-                                    1.1. A Maylon Home consiste em programa de assistência residencial destinado a disponibilizar ao assinante serviços de suporte, atendimento e assistência para situações emergenciais e/ou de manutenção relacionadas à residência, mediante a disponibilização de profissionais especializados, observados, em todos os casos, os procedimentos de acionamento, as condições de utilização, os limites de atendimento, as coberturas e as hipóteses de exclusão estabelecidos no presente Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    1.2. Para todos os fins de direito, a Maylon Home não se caracteriza como contrato de seguro privado, tampouco constitui produto securitário sujeito à regulamentação e fiscalização da Superintendência de Seguros Privados – SUSEP. O Programa possui natureza exclusivamente assistencial, destinando-se à prestação de serviços de assistência residencial, não substituindo, em qualquer hipótese, apólice ou contrato de seguro residencial, nem conferindo ao assinante as coberturas, garantias ou indenizações próprias de contratos de seguro.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    1.3. A disponibilização dos serviços de assistência previstos neste Termo estará condicionada à observância das condições, limites, regras de utilização e hipóteses de exclusão estabelecidas no presente instrumento, não sendo devida qualquer prestação que esteja expressamente excluída ou que ultrapasse os limites contratualmente estabelecidos.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="02"
-                                title="DA ELEGIBILIDADE E DAS CONDIÇÕES DE UTILIZAÇÃO"
-                            >
-                                <p className="text-justify text-black">
-                                    2.1. Poderão usufruir dos serviços e benefícios disponibilizados pelo Maylon Home os assinantes que estejam regularmente cadastrados junto à MAYLON e que se encontrem em situação regular de adimplência quanto às obrigações financeiras decorrentes da contratação do Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    2.2. A utilização dos serviços e benefícios disponibilizados pelo Programa possui caráter pessoal e intransferível, estando vinculada ao assinante regularmente cadastrado e ao endereço residencial por ele informado no momento da contratação, ou posteriormente atualizado nos canais oficiais disponibilizados pela MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    2.3. A utilização dos serviços por terceiros não autorizados, bem como a utilização em desacordo com as disposições estabelecidas neste Termo de Uso, poderá ensejar a suspensão, bloqueio ou cancelamento do benefício, sem prejuízo da adoção das demais medidas cabíveis, observadas as disposições contratuais e a legislação aplicável.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    2.4. Compete ao assinante manter atualizados seus dados cadastrais e o endereço residencial vinculado ao Programa, responsabilizando-se pela veracidade e exatidão das informações fornecidas à MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    2.5. A elegibilidade para utilização dos serviços permanecerá condicionada à manutenção dos requisitos previstos neste instrumento, especialmente quanto à regularidade cadastral e à adimplência do assinante.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="03"
-                                title="DOS SERVIÇOS COBERTOS"
-                            >
-                                <p className="text-justify text-black">
-                                    3.1. Observadas as condições, limitações, regras de utilização e hipóteses de exclusão previstas neste Termo de Uso, o Maylon Home poderá disponibilizar ao assinante, de acordo com a natureza da solicitação apresentada e mediante disponibilidade operacional, serviços de assistência residencial, incluindo:
-                                </p>
-
-                                <ul className="list-disc space-y-2 pl-6 text-justify text-black">
-                                    <li>
-                                        Serviços de encanador, destinados à realização de intervenções e reparos hidráulicos de natureza simples e emergencial;
-                                    </li>
-                                    <li>
-                                        Serviços de eletricista, destinados à realização de intervenções e reparos elétricos de natureza simples e emergencial;
-                                    </li>
-                                    <li>
-                                        Serviços de chaveiro, para atendimento de ocorrências relacionadas a chaves, fechaduras e mecanismos de acesso residencial, observados os limites estabelecidos neste instrumento;
-                                    </li>
-                                    <li>
-                                        Serviços de vidraceiro, destinados ao atendimento de ocorrências relacionadas a vidros residenciais, observadas as condições e limitações aplicáveis;
-                                    </li>
-                                    <li>
-                                        Execução de reparos hidráulicos simples, desde que compatíveis com a natureza assistencial do Programa;
-                                    </li>
-                                    <li>
-                                        Execução de reparos elétricos simples, desde que compatíveis com a natureza assistencial do Programa;
-                                    </li>
-                                    <li>
-                                        Realização de pequenos serviços emergenciais de assistência residencial, desde que enquadrados nas condições de cobertura estabelecidas neste Termo de Uso;
-                                    </li>
-                                    <li>
-                                        Outros serviços de assistência residencial que venham a ser posteriormente disponibilizados pela MAYLON, de acordo com as condições, limites e regras de utilização vigentes à época da solicitação.
-                                    </li>
-                                </ul>
-
-                                <p className="mt-3 text-justify text-black">
-                                    3.2. A disponibilização dos serviços previstos neste Termo de Uso estará condicionada à abrangência geográfica do Programa, à existência de profissionais ou prestadores aptos a realizar o atendimento na localidade indicada pelo assinante e à respectiva disponibilidade operacional, não constituindo a solicitação do serviço, por si só, garantia de atendimento imediato ou de disponibilização de profissional em qualquer localidade ou horário, ainda que o Programa opere em regime de atendimento 24 horas por dia.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    3.3. A prestação dos serviços ficará sujeita à análise e ao enquadramento da solicitação nas condições estabelecidas neste Termo de Uso, podendo a MAYLON recusar o atendimento quando a ocorrência não estiver abrangida pelos serviços disponibilizados, exceder os limites estabelecidos ou estiver enquadrada em hipótese de exclusão.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    3.4. Os serviços de assistência serão prestados exclusivamente nos limites e condições estabelecidos neste instrumento, não abrangendo, salvo previsão expressa em contrário, serviços, materiais, peças, equipamentos ou intervenções que não estejam contemplados nas condições do Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    3.5. A relação de serviços prevista nesta cláusula poderá ser alterada, ampliada ou atualizada pela MAYLON, mediante comunicação ou disponibilização das condições atualizadas pelos canais oficiais do Programa, respeitados os direitos já constituídos e a legislação aplicável.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="04"
-                                title="DO LIMITE DE UTILIZAÇÃO DOS SERVIÇOS"
-                            >
-                                <p className="text-justify text-black">
-                                    4.1. O assinante terá direito à utilização dos serviços de assistência residencial disponibilizados pelo Maylon Home, limitada a 02 (duas) ocorrências por mês, independentemente da natureza, categoria ou modalidade do atendimento solicitado, observadas as demais condições e limitações estabelecidas neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    4.2. O limite de utilização estabelecido nesta cláusula possui caráter individual e vinculado à respectiva assinatura, não sendo permitida a transferência, cessão ou utilização do saldo de ocorrências por terceiros, tampouco sua acumulação para períodos posteriores.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    4.3. As ocorrências não utilizadas durante determinado mês serão automaticamente consideradas expiradas ao término do respectivo período, não gerando direito a crédito, compensação, restituição, transferência ou qualquer forma de aproveitamento em meses subsequentes.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    4.4. Eventuais solicitações de atendimento que ultrapassem o limite mensal de 02 (duas) ocorrências poderão, a exclusivo critério da MAYLON e mediante prévia ciência e concordância do assinante, ser realizadas mediante cobrança integral dos custos correspondentes à prestação do serviço, incluindo, quando aplicável, mão de obra, deslocamento, materiais, peças, equipamentos e demais despesas necessárias à execução do atendimento.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    4.5. A realização de atendimento adicional mediante cobrança não implicará a redução, renovação ou alteração do limite de utilização previsto para o período correspondente, permanecendo válidas as demais condições estabelecidas neste Termo de Uso.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="05"
-                                title="DO LIMITE FINANCEIRO DE COBERTURA"
-                            >
-                                <p className="text-justify text-black">
-                                    5.1. A MAYLON será responsável pelo custeio exclusivamente da mão de obra do profissional disponibilizado para a execução do serviço, limitado ao valor máximo de R$ 150,00 (cento e cinquenta reais) por atendimento, observadas as condições e demais limitações estabelecidas neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.2. O limite financeiro previsto na cláusula anterior não compreende, salvo disposição expressa em contrário, os custos relativos à aquisição ou substituição de materiais, peças, componentes, equipamentos, ferramentas especiais, insumos, serviços de terceiros, deslocamentos extraordinários, bem como quaisquer outras despesas necessárias ou decorrentes da execução do serviço.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.3. Na hipótese de o valor da mão de obra necessária à execução do atendimento exceder o limite de R$ 150,00 (cento e cinquenta reais), o valor correspondente ao excedente será de exclusiva responsabilidade do assinante, mediante sua prévia ciência e concordância quanto à realização do serviço.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.4. O assinante, ao solicitar e autorizar a execução de serviço cujo custo ultrapasse o limite financeiro de cobertura, declara estar ciente e concorda expressamente que o respectivo valor excedente poderá ser cobrado pela MAYLON por meio de lançamento na fatura mensal subsequente ou mediante boleto bancário, PIX, cartão de crédito ou outro meio de pagamento disponibilizado pela MAYLON, observadas as condições previamente informadas ao assinante.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.5. Os valores decorrentes de serviços ou despesas não abrangidos pelo limite financeiro de cobertura, desde que previamente autorizados pelo assinante, constituirão obrigação de pagamento de sua responsabilidade, devendo ser quitados no prazo e na forma estabelecidos pela MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.6. O eventual inadimplemento dos valores regularmente devidos poderá sujeitar o assinante às medidas de cobrança administrativa, extrajudicial e, quando cabível, judicial, observada a legislação aplicável, sem prejuízo das demais medidas previstas neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    5.7. A autorização para cobrança de valores excedentes não implica ampliação do limite de cobertura previsto neste instrumento, permanecendo o valor de R$ 150,00 (cento e cinquenta reais) como limite máximo de responsabilidade financeira da MAYLON por atendimento, salvo disposição contratual específica em sentido diverso.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="06"
-                                title="DAS EXCLUSÕES DE COBERTURA"
-                            >
-                                <p className="text-justify text-black">
-                                    6.1. Não estarão abrangidos pelos serviços de assistência residencial disponibilizados pelo Maylon Home, não sendo, portanto, de responsabilidade da MAYLON, os serviços, intervenções, despesas ou ocorrências que se enquadrem nas seguintes hipóteses:
-                                </p>
-
-                                <ul className="list-disc space-y-2 pl-6 text-justify text-black">
-                                    <li>
-                                        Execução de reformas residenciais, sejam elas parciais ou integrais;
-                                    </li>
-                                    <li>
-                                        Execução de obras, intervenções ou reparações de natureza estrutural no imóvel;
-                                    </li>
-                                    <li>
-                                        Serviços que demandem projetos, laudos, avaliações, acompanhamento ou responsabilidade técnica de engenharia;
-                                    </li>
-                                    <li>
-                                        Instalação completa, substituição integral ou implantação de redes elétricas, hidráulicas ou respectivas infraestruturas;
-                                    </li>
-                                    <li>
-                                        Substituição integral, reconstrução ou reforma completa de telhados e respectivas estruturas;
-                                    </li>
-                                    <li>
-                                        Construção, ampliação, demolição ou alteração estrutural de imóveis ou de suas dependências;
-                                    </li>
-                                    <li>
-                                        Serviços ou danos decorrentes de mau uso intencional, utilização inadequada, negligência ou intervenção deliberadamente indevida por parte do assinante ou de terceiros sob sua responsabilidade;
-                                    </li>
-                                    <li>
-                                        Danos, prejuízos ou ocorrências decorrentes da prática de atos ilícitos, bem como aqueles resultantes de condutas contrárias à legislação vigente;
-                                    </li>
-                                    <li>
-                                        Fornecimento, aquisição, substituição ou instalação de materiais, peças, componentes, equipamentos, insumos ou quaisquer outros itens necessários à execução do reparo, salvo quando expressamente previsto nas condições do Programa;
-                                    </li>
-                                    <li>
-                                        Prestação de serviços em imóveis comerciais, industriais ou destinados a atividades empresariais, salvo se houver previsão expressa de cobertura para tais estabelecimentos;
-                                    </li>
-                                    <li>
-                                        Danos, perdas ou ocorrências decorrentes de guerras, atos de terrorismo, conflitos armados, revoluções, rebeliões, tumultos, comoções civis, insurreições ou calamidades públicas, quando caracterizados como eventos alheios ao âmbito ordinário de assistência residencial do Programa.
-                                    </li>
-                                </ul>
-
-                                <p className="mt-3 text-justify text-black">
-                                    6.2. A relação de exclusões prevista nesta cláusula não afasta outras hipóteses de não atendimento que estejam expressamente previstas neste Termo de Uso ou que decorram da natureza, finalidade e limitações dos serviços disponibilizados pelo Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    6.3. A análise quanto ao enquadramento da solicitação nas condições de cobertura ou nas hipóteses de exclusão será realizada pela MAYLON, considerando as características da ocorrência relatada, a natureza do serviço solicitado e as disposições estabelecidas neste instrumento.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    6.4. Na hipótese de o atendimento solicitado não estar abrangido pelo Programa, o assinante poderá, quando houver disponibilidade e mediante prévia ciência e concordância quanto aos respectivos custos, contratar diretamente o serviço junto ao profissional ou prestador indicado, não sendo tais valores considerados como parte da cobertura prevista neste Termo de Uso.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="07"
-                                title="DAS RESPONSABILIDADES DO ASSINANTE"
-                            >
-                                <p className="text-justify text-black">
-                                    7.1. Constituem obrigações do assinante fornecer à MAYLON, no momento da contratação e sempre que solicitado, informações verdadeiras, completas, precisas e atualizadas, responsabilizando-se integralmente pela autenticidade e exatidão dos dados fornecidos.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    7.2. O assinante deverá assegurar e proporcionar acesso seguro e adequado ao imóvel para que o profissional ou prestador disponibilizado pela MAYLON possa realizar a avaliação, execução ou conclusão do serviço solicitado, observadas as condições de segurança e as limitações previstas neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    7.3. Caberá exclusivamente ao assinante o pagamento de quaisquer valores que excedam os limites financeiros ou quantitativos de cobertura estabelecidos neste Termo de Uso, incluindo, quando aplicável, valores relativos a mão de obra excedente, materiais, peças, equipamentos, deslocamentos extraordinários e demais despesas não abrangidas pelo Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    7.4. O assinante será integralmente responsável pelos danos, perdas ou prejuízos eventualmente ocasionados à MAYLON, aos profissionais, prestadores de serviços ou a terceiros em decorrência do fornecimento de informações falsas, incorretas ou incompletas, bem como da utilização indevida, irregular ou fraudulenta dos benefícios disponibilizados pelo Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    7.5. O assinante deverá utilizar os serviços disponibilizados exclusivamente para as finalidades previstas neste Termo de Uso, abstendo-se de praticar qualquer ato que possa caracterizar fraude, abuso, desvio de finalidade ou utilização incompatível com as condições estabelecidas para o Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    7.6. O descumprimento das obrigações previstas nesta cláusula poderá ensejar a suspensão ou cancelamento da utilização dos benefícios, sem prejuízo da apuração de eventuais perdas e danos e da adoção das medidas administrativas, extrajudiciais ou judiciais cabíveis, observado o disposto na legislação aplicável.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="08"
-                                title="DAS RESPONSABILIDADES DA MAYLON"
-                            >
-                                <p className="text-justify text-black">
-                                    8.1. Compete à MAYLON atuar na condição de organizadora e intermediadora dos serviços de assistência residencial disponibilizados por meio do Programa, observadas as condições, limites, procedimentos e exclusões estabelecidos neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.2. A MAYLON envidará seus melhores esforços para disponibilizar ao assinante profissionais e prestadores devidamente aptos e qualificados para a execução dos serviços abrangidos pelo Programa, observadas a disponibilidade operacional, a abrangência geográfica e as características do atendimento solicitado.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.3. A disponibilização de profissional ou prestador estará condicionada à existência de disponibilidade na localidade do atendimento, não sendo garantida a prestação imediata do serviço em todas as circunstâncias, especialmente em situações excepcionais, de força maior ou que estejam fora da esfera de controle da MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.4. A MAYLON não será responsável por lucros cessantes, perdas financeiras, danos indiretos, danos consequenciais ou prejuízos decorrentes de fatos ou circunstâncias alheios à sua atuação ou ao seu controle razoável, inclusive aqueles decorrentes de caso fortuito, força maior, indisponibilidade de prestadores, restrições de acesso ao imóvel ou outras circunstâncias que impeçam ou dificultem a execução do serviço.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.5. A atuação da MAYLON na organização e intermediação da assistência não implica garantia de resultado específico além daqueles expressamente previstos neste Termo de Uso, permanecendo a prestação dos serviços condicionada às características da ocorrência, aos limites de cobertura e às condições aplicáveis ao Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.6. A MAYLON não responderá por serviços, reparos, materiais ou intervenções contratados diretamente pelo assinante com terceiros sem prévia autorização ou intermediação da MAYLON, salvo quando houver previsão expressa em sentido contrário neste Termo de Uso.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    8.7. A MAYLON compromete-se a observar, no desenvolvimento de suas atividades relacionadas ao Programa, as disposições legais e regulamentares aplicáveis, bem como os direitos assegurados ao assinante na condição de consumidor, quando aplicáveis.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="09"
-                                title="DO CANCELAMENTO E DA SUSPENSÃO DOS SERVIÇOS"
-                            >
-                                <p className="text-justify text-black">
-                                    9.1. A utilização dos benefícios e serviços disponibilizados pelo Maylon Maylon Home poderá ser suspensa ou interrompida, observadas as disposições deste Termo de Uso e a legislação aplicável, nas hipóteses de:
-                                </p>
-
-                                <ul className="list-disc space-y-2 pl-6 text-justify text-black">
-                                    <li>
-                                        Inadimplemento das obrigações financeiras assumidas pelo assinante, observado o disposto na legislação aplicável;
-                                    </li>
-                                    <li>
-                                        Constatação ou existência de indícios de fraude, tentativa de fraude ou qualquer prática destinada a obter vantagem indevida mediante a utilização do Programa;
-                                    </li>
-                                    <li>
-                                        Utilização indevida, irregular, abusiva ou incompatível dos serviços e benefícios disponibilizados pelo Programa;
-                                    </li>
-                                    <li>
-                                        Descumprimento ou violação de qualquer disposição estabelecida neste Termo de Uso;
-                                    </li>
-                                    <li>
-                                        Fornecimento de informações falsas, incorretas, incompletas ou fraudulentas que possam comprometer a regularidade da contratação ou da utilização dos serviços.
-                                    </li>
-                                </ul>
-
-                                <p className="mt-3 text-justify text-black">
-                                    9.2. Nas hipóteses previstas nesta cláusula, a MAYLON poderá adotar as medidas necessárias à proteção do Programa, de seus assinantes, profissionais, prestadores e demais envolvidos, inclusive mediante suspensão temporária ou cancelamento da utilização dos benefícios, sem prejuízo das demais medidas administrativas, extrajudiciais ou judiciais cabíveis.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    9.3. O assinante poderá solicitar o cancelamento de sua adesão ao Programa, observadas as condições, procedimentos, prazos e regras estabelecidos para o plano contratado e os canais oficiais disponibilizados pela MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    9.4. O cancelamento da adesão não afastará eventuais obrigações financeiras regularmente constituídas anteriormente à efetivação do cancelamento, inclusive valores decorrentes de serviços adicionais ou excedentes previamente autorizados pelo assinante.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    9.5. Eventuais restituições, estornos ou demais efeitos financeiros decorrentes do cancelamento observarão as condições aplicáveis ao plano contratado e a legislação vigente.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="10"
-                                title="DA PROTEÇÃO DE DADOS PESSOAIS"
-                            >
-                                <p className="text-justify text-black">
-                                    10.1. O tratamento dos dados pessoais dos assinantes realizado pela MAYLON no âmbito do Maylon Maylon Home será efetuado em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados Pessoais (LGPD), bem como com as demais normas legais e regulamentares aplicáveis.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.2. Os dados pessoais poderão ser coletados e tratados na medida necessária para as finalidades relacionadas à contratação, gestão e execução dos serviços, incluindo, entre outras, a prestação da assistência residencial, o atendimento e suporte ao assinante, o processamento de pagamentos, a comunicação relacionada ao Programa, o cumprimento de obrigações legais e regulatórias e o exercício regular de direitos.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.3. Os dados pessoais também poderão ser utilizados para o aperfeiçoamento dos serviços, melhoria da experiência do assinante e desenvolvimento das funcionalidades do Programa, observados os princípios, bases legais e demais requisitos estabelecidos pela LGPD.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.4. A MAYLON adotará medidas técnicas, administrativas e organizacionais razoáveis e compatíveis com a natureza dos dados tratados, destinadas a proteger as informações pessoais contra acessos não autorizados e situações acidentais ou ilícitas de destruição, perda, alteração, comunicação ou qualquer outra forma de tratamento inadequado ou ilícito.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.5. O tratamento e eventual compartilhamento de dados pessoais com profissionais, prestadores de serviços, parceiros ou terceiros envolvidos na operacionalização do Programa ocorrerão somente quando necessários à execução das finalidades legítimas relacionadas aos serviços, ao cumprimento de obrigações legais ou ao exercício regular de direitos, observadas as disposições da legislação aplicável.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.6. Os direitos dos titulares de dados pessoais serão assegurados nos termos da legislação vigente, incluindo aqueles previstos na Lei Geral de Proteção de Dados Pessoais – LGPD, mediante os canais oficiais disponibilizados pela MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    10.7. As informações complementares sobre coleta, utilização, armazenamento, compartilhamento, segurança e direitos dos titulares poderão ser apresentadas em Política de Privacidade própria da MAYLON, a qual deverá ser observada em conjunto com este Termo de Uso.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="11"
-                                title="DAS ALTERAÇÕES DO TERMO DE USO"
-                            >
-                                <p className="text-justify text-black">
-                                    11.1. A MAYLON poderá, a qualquer tempo, promover alterações, atualizações, complementações ou adequações no presente Termo de Uso, especialmente em razão de alterações legislativas, regulamentares, operacionais ou na estrutura e funcionamento dos serviços disponibilizados pelo Programa.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    11.2. As alterações realizadas serão disponibilizadas ao assinante por meio dos canais oficiais da MAYLON, mediante publicação da versão atualizada deste instrumento, passando a produzir efeitos a partir da data indicada na respectiva versão, ressalvadas as disposições legais aplicáveis.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    11.3. A continuidade da utilização dos serviços e benefícios disponibilizados pelo Maylon Maylon Home após a entrada em vigor da versão atualizada deste Termo será considerada manifestação de ciência e aceitação das alterações realizadas, ressalvados os direitos assegurados ao assinante pela legislação vigente.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    11.4. Caso o assinante não concorde com as alterações promovidas, poderá solicitar o cancelamento de sua adesão ao Programa, observadas as condições aplicáveis ao plano contratado, os procedimentos estabelecidos pela MAYLON e as obrigações eventualmente constituídas até a efetivação do cancelamento.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="12"
-                                title="DAS DISPOSIÇÕES GERAIS"
-                            >
-                                <p className="text-justify text-black">
-                                    12.1. A eventual tolerância, omissão ou liberalidade da MAYLON quanto ao descumprimento, pelo assinante, de qualquer obrigação ou condição estabelecida neste Termo de Uso não será interpretada como renúncia, novação, alteração contratual ou perda do direito de exigir o respectivo cumprimento, podendo a MAYLON exercer seus direitos a qualquer tempo.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    12.2. A eventual declaração de nulidade, invalidade ou inexequibilidade de qualquer disposição deste Termo de Uso, por autoridade competente ou em decorrência de determinação legal ou judicial, não prejudicará a validade e a eficácia das demais disposições, que permanecerão plenamente vigentes naquilo que não forem afetadas.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    12.3. As disposições deste Termo de Uso vinculam o assinante e a MAYLON, bem como seus respectivos sucessores e cessionários, na medida em que juridicamente aplicável, respeitadas as disposições legais pertinentes.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    12.4. Este Termo de Uso deverá ser interpretado em conjunto com os demais documentos, políticas e condições que integrem ou complementem a contratação do Maylon Maylon Home, incluindo, quando aplicável, a Política de Privacidade e demais documentos disponibilizados pela MAYLON.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    12.5. Os casos omissos neste Termo de Uso serão solucionados de acordo com as disposições da legislação brasileira aplicável, observados os princípios da boa-fé, equilíbrio contratual e demais normas pertinentes à relação jurídica estabelecida entre as partes.
-                                </p>
-
-                                <p className="text-justify text-black">
-                                    12.6. A eventual comunicação, notificação ou informação dirigida ao assinante poderá ser realizada por meio dos canais de comunicação e contatos cadastrados junto à MAYLON, cabendo ao assinante manter seus dados cadastrais devidamente atualizados.
-                                </p>
-                            </TermSection>
-
-                            <TermSection
-                                number="13"
-                                title="DO FORO"
-                            >
-                                <p className="text-justify text-black">
-                                    13.1. Fica eleito o Foro da Comarca de São Paulo, Estado de São Paulo, para dirimir quaisquer dúvidas, questões, controvérsias ou litígios decorrentes da interpretação, execução, cumprimento ou rescisão do presente Termo de Uso, com renúncia expressa a qualquer outro, por mais privilegiado que seja, ressalvadas as hipóteses em que a legislação aplicável assegure ao assinante o direito de demandar em foro diverso.
-                                </p>
-                            </TermSection>
-
-                            <div className="mt-10 rounded-2xl border border-[#35a989]/20 bg-[#35a989]/5 p-6">
-                                <div className="flex gap-4">
-                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#35a989]">
-                                        <CheckCircle2 className="h-5 w-5 text-white" />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="font-black text-slate-950">
-                                            Aceite dos Termos
-                                        </h3>
-
-                                        <p className="mt-2 text-sm leading-6 text-slate-600">
-                                            Ao prosseguir com a contratação do Maylon Home, o assinante declara, para todos os fins de direito, que teve acesso prévio a estes Termos de Uso, realizou sua leitura integral, compreendeu seu conteúdo e manifesta sua expressa concordância com todas as disposições neles estabelecidas.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row">
-                        <p className="text-center text-xs text-slate-400 sm:text-left">
-                            Última atualização: <strong>15/09/2026</strong>
-                        </p>
-
-                        <Link
-                            href="/maylon_home"
-                            className="inline-flex items-center gap-2 rounded-xl bg-[#35a989] px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#27866c] hover:shadow-lg"
-                        >
-                            <ArrowLeft className="h-4 w-4" />
-                            Voltar para o Maylon Home
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            <footer className="border-t border-slate-200 bg-white px-4 py-5">
-                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 sm:flex-row">
-                    <div className="flex items-center gap-2">
-                        <Image
-                            src="/logo.png"
-                            alt="Banner Maylon"
-                            width={200}
-                            height={500}
-                            className="rounded-2xl object-cover"
-                        />
-                    </div>
-
-                    <p className="text-xs text-slate-400">
-                        © {new Date().getFullYear()} Maylon. Todos os direitos reservados.
-                    </p>
-                </div>
-            </footer>
-        </main>
-    );
-}
+const VAN_ROUTE = "/maylon_pass";
 
 function TermSection({
     number,
@@ -583,22 +22,805 @@ function TermSection({
     children: ReactNode;
 }) {
     return (
-        <section className="border-b border-slate-100 py-7 first:pt-0 last:border-b-0">
-            <div className="flex items-start gap-4">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#35a989]/10 text-xs font-black text-[#35a989]">
+        <section
+            className="mb-10 last:mb-0"
+            aria-labelledby={`secao-${number}`}
+        >
+            <div className="mb-4 flex items-start gap-3">
+                <div className="flex h-9 min-w-9 shrink-0 items-center justify-center rounded-lg bg-[#35a989] px-2 text-sm font-bold text-white shadow-sm">
                     {number}
-                </span>
-
-                <div className="min-w-0 flex-1">
-                    <h3 className="text-lg font-black text-slate-950">
-                        {title}
-                    </h3>
-
-                    <div className="mt-3 space-y-3 text-sm leading-7 text-slate-600">
-                        {children}
-                    </div>
                 </div>
+
+                <h2
+                    id={`secao-${number}`}
+                    className="pt-1 text-lg font-bold leading-7 text-slate-900 sm:text-xl"
+                >
+                    {title}
+                </h2>
+            </div>
+
+            <div className="space-y-3 text-justify text-[15px] leading-7 text-slate-700">
+                {children}
             </div>
         </section>
+    );
+}
+
+function Clause({
+    number,
+    children,
+}: {
+    number: string;
+    children: ReactNode;
+}) {
+    return (
+        <p>
+            <span className="font-semibold text-slate-900">{number}</span>{" "}
+            {children}
+        </p>
+    );
+}
+
+export default function TermosDeUsoPage() {
+    return (
+        <main className="min-h-screen bg-[#f7faf9] text-slate-900">
+
+            {/* HEADER */}
+            <header className="border-b border-slate-200 bg-white">
+                <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+                    <Link
+                        href={VAN_ROUTE}
+                        className="inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-[#27866c]"
+                    >
+                        <ArrowLeft size={18} />
+                        Voltar
+                    </Link>
+                </div>
+            </header>
+
+            {/* HERO */}
+            <section className="m-auto border-b border-slate-200 bg-white">
+                <div className="mx-auto flex max-w-5xl flex-col items-center px-4 py-12 text-center sm:px-6 sm:py-16 lg:px-8">
+                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#35a989]/20 bg-[#35a989]/10 px-4 py-2 text-sm font-semibold text-[#27866c]">
+                        <FileText size={16} />
+                        Documento oficial
+                    </div>
+
+                    <h1 className="max-w-3xl text-1xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-3xl">
+                        Termos de Uso
+                        <p className="mt-2 text-[#35a989]">
+                            Maylon Van Escolar
+                        </p>
+                    </h1>
+
+                    <p className="mt-6 max-w-3xl text-sm leading-7 text-slate-600 sm:text-sm">
+                        Este Termo de Uso estabelece as condições, regras,
+                        direitos, deveres e responsabilidades aplicáveis à
+                        contratação e utilização dos serviços de transporte
+                        escolar disponibilizados pela Maylon Van Escolar.
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap justify-center gap-3">
+                        <div className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                            <ShieldCheck
+                                size={18}
+                                className="text-[#35a989]"
+                            />
+                            Segurança e responsabilidade
+                        </div>
+
+                        <div className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                            <FileText
+                                size={18}
+                                className="text-[#35a989]"
+                            />
+                            Regras de utilização
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {/* CONTEÚDO */}
+            <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+
+                {/* AVISO */}
+                <section className="mb-8 rounded-2xl border border-[#35a989]/20 bg-white p-5 shadow-sm sm:p-6">
+                    <div className="flex items-start gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#35a989]/10 text-[#27866c]">
+                            <FileText size={20} />
+                        </div>
+
+                        <div>
+                            <h2 className="font-bold text-slate-900">
+                                Antes de Continuar
+                            </h2>
+
+                            <p className="mt-2 text-sm leading-6 text-slate-600">
+                                Recomenda-se a leitura integral deste Termo de
+                                Uso antes da contratação, cadastro ou utilização
+                                dos serviços de transporte escolar
+                                disponibilizados pela Maylon Van Escolar.
+                            </p>
+
+                            <p className="mt-2 text-sm leading-6 text-slate-600">
+                                Ao prosseguir com o cadastro, contratação ou
+                                utilização dos serviços, o responsável legal
+                                declara que teve acesso ao presente documento,
+                                realizou sua leitura e compreensão e concorda
+                                com as condições nele estabelecidas.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* DOCUMENTO */}
+                <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+
+                    {/* INTRODUÇÃO */}
+                    <div className="mb-10 border-b border-slate-200 pb-8">
+                        <p className="text-justify text-[15px] leading-7 text-slate-700">
+                            O presente Termo de Uso tem por objeto estabelecer
+                            as condições, regras, direitos, deveres e
+                            responsabilidades que regerão a contratação,
+                            disponibilização e utilização dos serviços de
+                            transporte escolar disponibilizados pela MAYLON,
+                            por meio do programa denominado{" "}
+                            <strong className="text-slate-900">
+                                “Maylon Van Escolar”
+                            </strong>
+                            , doravante denominado simplesmente
+                            “Programa”, destinado ao transporte de alunos
+                            regularmente cadastrados, observadas as condições
+                            previstas neste instrumento e na legislação
+                            aplicável.
+                        </p>
+
+                        <p className="mt-4 text-justify text-[15px] leading-7 text-slate-700">
+                            A adesão ao Programa implicará a declaração
+                            expressa do responsável legal pelo aluno de que
+                            teve prévio e amplo acesso ao presente Termo de
+                            Uso, procedeu à sua leitura e compreensão integral
+                            e concorda, de forma livre e inequívoca, com todas
+                            as suas disposições, obrigando-se a cumpri-las
+                            durante a vigência da contratação.
+                        </p>
+                    </div>
+
+                    {/* 01 */}
+                    <TermSection
+                        number="01"
+                        title="DO OBJETO E DA NATUREZA DO PROGRAMA"
+                    >
+                        <Clause number="1.1">
+                            O Maylon Van Escolar tem por finalidade disponibilizar
+                            serviço de transporte escolar para o deslocamento
+                            regular de alunos entre os pontos de embarque e
+                            desembarque previamente cadastrados e as respectivas
+                            instituições de ensino, observando horários, rotas,
+                            condições operacionais, limites e regras de
+                            segurança estabelecidos para o serviço.
+                        </Clause>
+
+                        <Clause number="1.2">
+                            O serviço será realizado por meio de veículos
+                            destinados e autorizados ao transporte escolar,
+                            conduzidos por motoristas que atendam aos requisitos
+                            legais e regulamentares aplicáveis.
+                        </Clause>
+
+                        <Clause number="1.3">
+                            Os horários informados possuem caráter estimado,
+                            não constituindo garantia de chegada ou desembarque
+                            em horário exato, considerando a possibilidade de
+                            ocorrência de trânsito, condições climáticas,
+                            obras, acidentes, bloqueios viários e demais
+                            situações alheias ao controle operacional.
+                        </Clause>
+
+                        <Clause number="1.4">
+                            A prestação dos serviços observará as condições
+                            contratadas, a disponibilidade operacional, a rota
+                            estabelecida e os requisitos de segurança
+                            aplicáveis.
+                        </Clause>
+
+                        <Clause number="1.5">
+                            A MAYLON poderá prestar os serviços diretamente ou
+                            por meio de motoristas, profissionais ou prestadores
+                            devidamente cadastrados, autorizados ou contratados,
+                            conforme a estrutura operacional adotada.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 02 */}
+                    <TermSection
+                        number="02"
+                        title="DA ELEGIBILIDADE E DAS CONDIÇÕES DE UTILIZAÇÃO"
+                    >
+                        <Clause number="2.1">
+                            Poderão utilizar o Programa os alunos regularmente
+                            cadastrados pelo respectivo responsável legal.
+                        </Clause>
+
+                        <Clause number="2.2">
+                            A contratação poderá ser realizada pelo pai, mãe,
+                            tutor, responsável legal ou pessoa devidamente
+                            autorizada para representar o aluno.
+                        </Clause>
+
+                        <Clause number="2.3">
+                            O responsável deverá fornecer informações completas,
+                            verdadeiras e atualizadas sobre o aluno, incluindo
+                            nome, data de nascimento, endereço, instituição de
+                            ensino, horários, contatos de emergência e demais
+                            informações necessárias à adequada execução do
+                            serviço.
+                        </Clause>
+
+                        <Clause number="2.4">
+                            O serviço é pessoal e vinculado ao aluno cadastrado,
+                            não podendo ser utilizado por terceiro sem prévia
+                            autorização e atualização cadastral.
+                        </Clause>
+
+                        <Clause number="2.5">
+                            O responsável deverá comunicar alterações de
+                            endereço, instituição de ensino, horário, rota,
+                            contatos ou pessoas autorizadas a receber o aluno.
+                        </Clause>
+
+                        <Clause number="2.6">
+                            A prestação do serviço poderá estar condicionada à
+                            regularidade dos pagamentos e ao cumprimento das
+                            demais obrigações previstas neste Termo e no
+                            contrato aplicável.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 03 */}
+                    <TermSection
+                        number="03"
+                        title="DOS SERVIÇOS DE TRANSPORTE ESCOLAR"
+                    >
+                        <Clause number="3.1">
+                            Os serviços poderão compreender, conforme o plano
+                            contratado e a disponibilidade operacional:
+                        </Clause>
+
+                        <ul className="ml-5 list-disc space-y-2">
+                            <li>
+                                transporte regular do ponto cadastrado até a
+                                instituição de ensino;
+                            </li>
+                            <li>
+                                transporte da instituição de ensino até o ponto
+                                cadastrado para desembarque;
+                            </li>
+                            <li>
+                                horários programados para as rotas contratadas;
+                            </li>
+                            <li>
+                                transporte de ida e volta, quando previsto no
+                                plano contratado;
+                            </li>
+                            <li>
+                                inclusão do aluno em rota compatível;
+                            </li>
+                            <li>
+                                comunicação operacional com o responsável;
+                            </li>
+                            <li>
+                                acompanhamento da rota, quando essa
+                                funcionalidade estiver disponível;
+                            </li>
+                            <li>
+                                outros serviços relacionados disponibilizados
+                                pela MAYLON.
+                            </li>
+                        </ul>
+
+                        <Clause number="3.2">
+                            A disponibilização do serviço dependerá da existência
+                            de rota compatível, veículo disponível, motorista
+                            habilitado, capacidade operacional e região de
+                            cobertura.
+                        </Clause>
+
+                        <Clause number="3.3">
+                            A contratação não implica garantia de atendimento a
+                            qualquer endereço, instituição de ensino, horário
+                            ou região, estando a prestação sujeita à viabilidade
+                            operacional.
+                        </Clause>
+
+                        <Clause number="3.4">
+                            As rotas poderão ser alteradas em razão de questões
+                            operacionais, segurança, trânsito, obras,
+                            alterações escolares ou inclusão e retirada de
+                            alunos.
+                        </Clause>
+
+                        <Clause number="3.5">
+                            A MAYLON poderá atualizar, ampliar ou alterar rotas
+                            e modalidades de atendimento, mediante comunicação
+                            quando aplicável, respeitando os direitos
+                            adquiridos e a legislação vigente.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 04 */}
+                    <TermSection
+                        number="04"
+                        title="DO EMBARQUE E DO DESEMBARQUE DO ALUNO"
+                    >
+                        <Clause number="4.1">
+                            O aluno deverá estar disponível no ponto de embarque
+                            cadastrado, preferencialmente alguns minutos antes
+                            do horário estimado de passagem do veículo.
+                        </Clause>
+
+                        <Clause number="4.2">
+                            A MAYLON não poderá ser responsabilizada por atraso
+                            decorrente da indisponibilidade do aluno no local
+                            indicado, cabendo ao responsável garantir que o
+                            aluno esteja preparado para o embarque.
+                        </Clause>
+
+                        <Clause number="4.3">
+                            Quando houver necessidade de entrega do aluno a uma
+                            pessoa autorizada, o responsável deverá fornecer
+                            previamente os dados necessários para sua
+                            identificação.
+                        </Clause>
+
+                        <Clause number="4.4">
+                            Caso não esteja disponível pessoa autorizada para
+                            receber o aluno, poderão ser adotados procedimentos
+                            de segurança, incluindo contato com o responsável,
+                            direcionamento para local seguro previamente
+                            definido ou outras orientações operacionais
+                            adequadas à situação.
+                        </Clause>
+
+                        <Clause number="4.5">
+                            O responsável deverá manter seus canais de contato
+                            atualizados e acessíveis durante o período de
+                            transporte.
+                        </Clause>
+
+                        <Clause number="4.6">
+                            Eventuais atrasos decorrentes de trânsito,
+                            condições climáticas, acidentes, bloqueios viários,
+                            obras ou outras circunstâncias poderão ser
+                            comunicados ao responsável quando possível.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 05 */}
+                    <TermSection
+                        number="05"
+                        title="DA SEGURANÇA E DA CONDUTA DO ALUNO"
+                    >
+                        <Clause number="5.1">
+                            O aluno deverá respeitar as orientações fornecidas
+                            pelo motorista e as regras de segurança aplicáveis
+                            ao transporte escolar.
+                        </Clause>
+
+                        <Clause number="5.2">
+                            O uso do cinto de segurança será obrigatório durante
+                            o trajeto sempre que disponibilizado e exigido pela
+                            legislação aplicável.
+                        </Clause>
+
+                        <Clause number="5.3">
+                            Não serão permitidas condutas que possam colocar em
+                            risco o próprio aluno, demais passageiros, motorista
+                            ou terceiros.
+                        </Clause>
+
+                        <Clause number="5.4">
+                            O aluno deverá permanecer sentado e utilizar
+                            corretamente os equipamentos de segurança
+                            disponibilizados.
+                        </Clause>
+
+                        <Clause number="5.5">
+                            Danos intencionais causados ao veículo ou aos
+                            equipamentos poderão ser comunicados ao responsável,
+                            observadas a legislação aplicável e as
+                            responsabilidades legalmente cabíveis.
+                        </Clause>
+
+                        <Clause number="5.6">
+                            Comportamentos que representem risco poderão
+                            resultar no contato com o responsável e na adoção
+                            das medidas necessárias à preservação da segurança.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 06 */}
+                    <TermSection
+                        number="06"
+                        title="DOS VEÍCULOS E DOS MOTORISTAS"
+                    >
+                        <Clause number="6.1">
+                            Os veículos utilizados deverão observar os requisitos
+                            legais e regulamentares aplicáveis ao transporte
+                            escolar, incluindo documentação, equipamentos
+                            obrigatórios e condições de segurança.
+                        </Clause>
+
+                        <Clause number="6.2">
+                            Os motoristas deverão atender aos requisitos legais
+                            e regulamentares aplicáveis à condução de veículos
+                            destinados ao transporte escolar.
+                        </Clause>
+
+                        <Clause number="6.3">
+                            A MAYLON poderá substituir motorista ou veículo por
+                            motivos operacionais, manutenção, segurança,
+                            indisponibilidade, férias, afastamento ou outras
+                            necessidades justificadas da operação.
+                        </Clause>
+
+                        <Clause number="6.4">
+                            A substituição não implicará alteração do contrato
+                            quando forem preservadas as condições essenciais do
+                            serviço e observados os requisitos legais
+                            aplicáveis.
+                        </Clause>
+
+                        <Clause number="6.5">
+                            O responsável poderá utilizar os canais oficiais da
+                            MAYLON para solicitar informações operacionais,
+                            observadas as regras de segurança e proteção de
+                            dados pessoais.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 07 */}
+                    <TermSection
+                        number="07"
+                        title="DA RESPONSABILIDADE DO RESPONSÁVEL LEGAL"
+                    >
+                        <Clause number="7.1">
+                            O responsável deverá fornecer informações verdadeiras,
+                            completas e atualizadas.
+                        </Clause>
+
+                        <Clause number="7.2">
+                            Deverá informar condições específicas do aluno que
+                            sejam relevantes para a segurança ou adequada
+                            prestação do serviço, respeitada a legislação de
+                            proteção de dados pessoais.
+                        </Clause>
+
+                        <Clause number="7.3">
+                            Deverá manter atualizados telefone, endereço,
+                            contatos de emergência e demais canais necessários
+                            à comunicação.
+                        </Clause>
+
+                        <Clause number="7.4">
+                            Caberá ao responsável autorizar a utilização do
+                            serviço e indicar as pessoas autorizadas a receber
+                            o aluno, quando aplicável.
+                        </Clause>
+
+                        <Clause number="7.5">
+                            Alterações que possam afetar a segurança ou a
+                            execução do serviço deverão ser comunicadas
+                            imediatamente à MAYLON.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 08 */}
+                    <TermSection
+                        number="08"
+                        title="DAS MENSALIDADES E DO PAGAMENTO"
+                    >
+                        <Clause number="8.1">
+                            O responsável deverá efetuar o pagamento do plano,
+                            rota ou modalidade contratada conforme as condições
+                            comerciais estabelecidas.
+                        </Clause>
+
+                        <Clause number="8.2">
+                            Os valores poderão variar de acordo com região,
+                            distância, quantidade de dias, período escolar,
+                            modalidade contratada e demais condições comerciais
+                            aplicáveis.
+                        </Clause>
+
+                        <Clause number="8.3">
+                            O inadimplemento poderá resultar na suspensão do
+                            serviço, observadas as condições previamente
+                            estabelecidas e a legislação aplicável.
+                        </Clause>
+
+                        <Clause number="8.4">
+                            Alterações de preços, planos ou condições comerciais
+                            serão comunicadas previamente quando exigido pela
+                            legislação ou pelas condições contratuais.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 09 */}
+                    <TermSection
+                        number="09"
+                        title="DAS FALTAS, CANCELAMENTOS E ALTERAÇÕES DE ROTA"
+                    >
+                        <Clause number="9.1">
+                            O responsável deverá comunicar, sempre que possível
+                            com antecedência, eventuais ausências programadas
+                            do aluno.
+                        </Clause>
+
+                        <Clause number="9.2">
+                            A ausência do aluno não implicará automaticamente
+                            desconto ou restituição de valores, salvo quando
+                            previsto no plano contratado ou determinado pela
+                            legislação aplicável.
+                        </Clause>
+
+                        <Clause number="9.3">
+                            Alterações de endereço, instituição de ensino ou
+                            horário estarão sujeitas à viabilidade operacional.
+                        </Clause>
+
+                        <Clause number="9.4">
+                            Alterações significativas de rota poderão resultar
+                            em alteração do preço, mediante comunicação prévia
+                            quando aplicável.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 10 */}
+                    <TermSection
+                        number="10"
+                        title="DA PROTEÇÃO DE DADOS PESSOAIS"
+                    >
+                        <Clause number="10.1">
+                            A MAYLON poderá realizar o tratamento dos dados
+                            pessoais necessários à execução dos serviços,
+                            cadastro do aluno, comunicação com o responsável,
+                            organização de rotas, segurança, atendimento e
+                            cumprimento de obrigações legais e regulatórias.
+                        </Clause>
+
+                        <Clause number="10.2">
+                            O tratamento de dados observará a Lei nº 13.709/2018
+                            (Lei Geral de Proteção de Dados Pessoais - LGPD) e
+                            demais normas aplicáveis.
+                        </Clause>
+
+                        <Clause number="10.3">
+                            O tratamento de dados de crianças e adolescentes
+                            observará as proteções legais aplicáveis, inclusive
+                            aquelas relacionadas ao melhor interesse da criança
+                            e do adolescente.
+                        </Clause>
+
+                        <Clause number="10.4">
+                            O responsável poderá consultar a Política de
+                            Privacidade da MAYLON para obter informações sobre
+                            coleta, utilização, armazenamento, compartilhamento
+                            e proteção de dados pessoais.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 11 */}
+                    <TermSection
+                        number="11"
+                        title="DAS SITUAÇÕES DE EMERGÊNCIA"
+                    >
+                        <Clause number="11.1">
+                            Em situações de emergência ocorridas durante o
+                            transporte, a MAYLON e/ou o motorista poderão
+                            adotar as medidas necessárias para preservar a
+                            segurança e a integridade do aluno e das demais
+                            pessoas envolvidas.
+                        </Clause>
+
+                        <Clause number="11.2">
+                            O responsável será comunicado assim que possível,
+                            considerando as circunstâncias da ocorrência.
+                        </Clause>
+
+                        <Clause number="11.3">
+                            Quando necessário, poderão ser acionados serviços
+                            públicos de emergência, incluindo SAMU, Corpo de
+                            Bombeiros ou Polícia.
+                        </Clause>
+
+                        <Clause number="11.4">
+                            Em situações que exijam intervenção imediata para
+                            preservação da vida ou integridade física, a adoção
+                            de medidas emergenciais não dependerá de autorização
+                            prévia do responsável, quando isso não for
+                            materialmente possível.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 12 */}
+                    <TermSection
+                        number="12"
+                        title="DOS OBJETOS PESSOAIS"
+                    >
+                        <Clause number="12.1">
+                            Recomenda-se que o aluno não transporte objetos de
+                            elevado valor ou itens desnecessários durante o
+                            trajeto escolar.
+                        </Clause>
+
+                        <Clause number="12.2">
+                            A MAYLON não será responsável por objetos pessoais
+                            deixados ou esquecidos no veículo, salvo quando
+                            comprovada responsabilidade direta nos termos da
+                            legislação aplicável.
+                        </Clause>
+
+                        <Clause number="12.3">
+                            Objetos encontrados poderão ser encaminhados aos
+                            procedimentos internos de achados e perdidos
+                            disponibilizados pela MAYLON.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 13 */}
+                    <TermSection
+                        number="13"
+                        title="DA VIGÊNCIA, SUSPENSÃO E CANCELAMENTO"
+                    >
+                        <Clause number="13.1">
+                            A contratação permanecerá vigente durante o período
+                            contratado, observadas as condições estabelecidas
+                            no respectivo plano ou contrato.
+                        </Clause>
+
+                        <Clause number="13.2">
+                            O responsável poderá solicitar o cancelamento por
+                            meio dos canais oficiais da MAYLON, observadas as
+                            condições contratuais e a legislação aplicável.
+                        </Clause>
+
+                        <Clause number="13.3">
+                            A MAYLON poderá suspender ou cancelar a prestação
+                            do serviço em situações como inadimplência, uso
+                            indevido, fornecimento de informações falsas,
+                            descumprimento das regras de segurança ou outras
+                            hipóteses previstas neste Termo ou na legislação.
+                        </Clause>
+
+                        <Clause number="13.4">
+                            O cancelamento ou suspensão não afastará eventuais
+                            obrigações financeiras legalmente devidas até a
+                            data efetiva do encerramento.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 14 */}
+                    <TermSection
+                        number="14"
+                        title="DAS DISPOSIÇÕES GERAIS"
+                    >
+                        <Clause number="14.1">
+                            A contratação, utilização ou aceite eletrônico do
+                            serviço representa concordância com este Termo de
+                            Uso e com as políticas aplicáveis ao Programa.
+                        </Clause>
+
+                        <Clause number="14.2">
+                            A eventual tolerância quanto ao descumprimento de
+                            determinada disposição não constituirá renúncia ou
+                            alteração permanente de direito.
+                        </Clause>
+
+                        <Clause number="14.3">
+                            A MAYLON poderá atualizar este Termo em razão de
+                            alterações operacionais, legais ou regulatórias,
+                            respeitando os direitos previstos em lei.
+                        </Clause>
+
+                        <Clause number="14.4">
+                            Caso alguma disposição deste Termo seja considerada
+                            inválida ou inexigível, as demais disposições
+                            permanecerão válidas naquilo que não forem afetadas.
+                        </Clause>
+
+                        <Clause number="14.5">
+                            A relação será regida pela legislação brasileira,
+                            inclusive pelas normas de proteção ao consumidor e
+                            pelas regras aplicáveis ao transporte escolar.
+                        </Clause>
+                    </TermSection>
+
+                    {/* 15 */}
+                    <TermSection
+                        number="15"
+                        title="DO ACEITE DO TERMO DE USO"
+                    >
+                        <Clause number="15.1">
+                            O cadastro, contratação, aceite ou utilização dos
+                            serviços implica declaração do responsável legal de
+                            que teve acesso a este Termo de Uso, realizou sua
+                            leitura, compreendeu suas disposições e concorda
+                            com as condições estabelecidas.
+                        </Clause>
+
+                        <Clause number="15.2">
+                            O aceite eletrônico poderá ser registrado por meio
+                            de informações técnicas necessárias à comprovação
+                            da contratação e manifestação de vontade, observada
+                            a legislação aplicável.
+                        </Clause>
+
+                        <Clause number="15.3">
+                            Caso o responsável não concorde com as disposições
+                            deste Termo, deverá interromper o processo de
+                            contratação e não utilizar os serviços do Maylon
+                            Van Escolar.
+                        </Clause>
+                    </TermSection>
+
+                    {/* ACEITE FINAL */}
+                    <div className="mt-12 rounded-2xl border border-[#35a989]/20 bg-[#35a989]/5 p-5 sm:p-6">
+                        <div className="flex items-start gap-4">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#35a989] text-white">
+                                <CheckCircle2 size={22} />
+                            </div>
+
+                            <div>
+                                <h3 className="font-bold text-slate-900">
+                                    Aceite e ciência
+                                </h3>
+
+                                <p className="mt-2 text-sm leading-6 text-slate-600">
+                                    Ao realizar o cadastro, contratar ou utilizar
+                                    os serviços do Maylon Van Escolar, o
+                                    responsável legal declara estar ciente das
+                                    condições deste Termo de Uso e das demais
+                                    políticas aplicáveis ao serviço.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+
+                {/* VOLTAR */}
+                <div className="mt-8">
+                    <Link
+                        href={VAN_ROUTE}
+                        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-[#35a989] hover:text-[#27866c]"
+                    >
+                        <ArrowLeft size={18} />
+                        Voltar para o Maylon Van Escolar
+                    </Link>
+                </div>
+            </div>
+
+            {/* FOOTER */}
+            <footer className="border-t border-slate-200 bg-white">
+                <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+                    <Image
+                        src="/logo.png"
+                        alt="Logo Maylon"
+                        width={120}
+                        height={40}
+                        className="mx-auto h-9 w-auto object-contain"
+                    />
+
+                    <p className="mt-4 text-sm text-slate-500">
+                        © {new Date().getFullYear()} Maylon. Todos os direitos
+                        reservados.
+                    </p>
+
+                    <p className="mt-1 text-xs text-slate-400">
+                        Maylon Van Escolar
+                    </p>
+                </div>
+            </footer>
+        </main>
     );
 }
