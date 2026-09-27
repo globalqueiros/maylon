@@ -59,7 +59,7 @@ const plans: Plan[] = [
   {
     id: "basico",
     name: "Básico",
-    price: 19.9,
+    price: 29.9,
     description: "Para começar com as vantagens Maylon.",
     benefits: [
       "Condições especiais",
@@ -70,7 +70,7 @@ const plans: Plan[] = [
   {
     id: "plus",
     name: "Plus",
-    price: 40,
+    price: 59.9,
     description: "Mais benefícios para uma experiência completa.",
     benefits: [
       "Todos os benefícios do Básico",
@@ -81,7 +81,7 @@ const plans: Plan[] = [
   {
     id: "premium",
     name: "Premium",
-    price: 69.9,
+    price: 89.9,
     description: "A experiência Maylon mais completa.",
     benefits: [
       "Todos os benefícios do Plus",
@@ -98,9 +98,9 @@ const additionalServices: AdditionalService[] = [
     description: "Proteção e assistência para o seu lar.",
     href: "/maylon_pass/maylon_home",
     prices: {
-      basico: 35,
-      plus: 45,
-      premium: 25,
+      basico: 69.9,
+      plus: 50,
+      premium: 80,
     },
   },
   {
@@ -110,8 +110,8 @@ const additionalServices: AdditionalService[] = [
     href: "/maylon_pass/maylon_van_escolar",
     prices: {
       basico: 180,
-      plus: 220,
-      premium: 350,
+      plus: 210,
+      premium: 320,
     },
   },
 ];
