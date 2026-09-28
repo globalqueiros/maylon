@@ -157,27 +157,30 @@ export default function Navbar() {
                 aria-haspopup="true"
                 className="
                   ml-1
-                  flex
+                  inline-flex
+                  h-9
                   items-center
+                  justify-center
                   gap-2
                   rounded-full
                   bg-[#35a889]
-                  px-3
-                  py-2
-                  text-[11px]
+                  px-4
+                  text-xs
                   font-medium
+                  leading-none
                   whitespace-nowrap
                   text-white
-                  transition
+                  transition-colors
                   hover:bg-[#097b57]
+                  cursor-pointer
                   lg:ml-2
-                  lg:px-4
+                  lg:h-9
+                  lg:px-5
                   lg:text-[13px]
                   xl:text-sm
-                  cursor-pointer
                 "
               >
-                <span className="flex items-center leading-none">
+                <span className="text-xs flex items-center leading-none">
                   Acessar Portais
                 </span>
                 <span
