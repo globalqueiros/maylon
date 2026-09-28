@@ -109,7 +109,6 @@ export default function Navbar() {
               <Car size={16} />
               <span>Motorista</span>
             </Link>
-
             <Link
               href="/passageiro"
               className="
@@ -124,7 +123,6 @@ export default function Navbar() {
               <User size={16} />
               <span>Passageiro</span>
             </Link>
-
             <Link
               href="/empresas"
               className="
@@ -139,7 +137,6 @@ export default function Navbar() {
               <Building2 size={16} />
               <span>Empresas</span>
             </Link>
-
             <Link
               href="/suporte"
               className="
@@ -154,12 +151,10 @@ export default function Navbar() {
               <HelpCircle size={16} />
               <span>Suporte</span>
             </Link>
-
-            <div className="relative">
+            <div className="relative group">
               <button
                 type="button"
-                onClick={() => setOpen((prev) => !prev)}
-                aria-expanded={open}
+                aria-haspopup="true"
                 className="
                   ml-1
                   flex
@@ -179,80 +174,98 @@ export default function Navbar() {
                   lg:px-4
                   lg:text-[13px]
                   xl:text-sm
+                  cursor-pointer
                 "
               >
-                <span className="text-base">♙</span>
-                <span>Acessar Portais</span>
-
+                <span className="flex items-center leading-none">
+                  Acessar Portais
+                </span>
                 <span
-                  className={`
-                    text-sm
-                    leading-none
+                  className="
+                    ml-1
+                    flex
+                    h-3
+                    w-3
+                    items-center
+                    justify-center
                     transition-transform
                     duration-300
-                    ${open ? 'rotate-180' : ''}
-                  `}
-                >
-                  ⌄
-                </span>
-              </button>
-
-              {open && (
-                <div
-                  className="
-                    absolute
-                    right-0
-                    top-full
-                    z-50
-                    mt-2
-                    w-[180px]
-                    overflow-hidden
-                    rounded-2xl
-                    border
-                    border-gray-100
-                    bg-white
-                    py-1
-                    text-black
-                    shadow-xl
+                    group-hover:rotate-180
                   "
                 >
-                  <Link
-                    href="/empresas/cadastro"
-                    onClick={() => setOpen(false)}
+                  <span
                     className="
                       block
-                      border-b
-                      border-gray-200
-                      px-4
-                      py-3
-                      text-[12px]
-                      transition
-                      hover:bg-gray-100
-                      hover:text-[#35a889]
+                      h-1.5
+                      w-1.5
+                      rotate-45
+                      border-b-2
+                      border-r-2
+                      border-white
+                      -translate-y-[2px]
                     "
-                  >
-                    Quero Ser Motorista
-                  </Link>
+                  />
+                </span>
+              </button>
+              <div
+                className="
+                  invisible
+                  absolute
+                  right-0
+                  top-full
+                  z-50
+                  mt-2
+                  w-[180px]
+                  overflow-hidden
+                  rounded-2xl
+                  border
+                  border-gray-100
+                  bg-white
+                  py-1
+                  text-black
+                  opacity-0
+                  shadow-xl
+                  transition-all
+                  duration-200
+                  group-hover:visible
+                  group-hover:opacity-100
+                "
+              >
+                <Link
+                  href="/empresas/cadastro"
+                  className="
+                    block
+                    border-b
+                    border-gray-200
+                    px-4
+                    py-3
+                    text-[12px]
+                    transition
+                    hover:bg-gray-100
+                    hover:text-[#35a889]
+                  "
+                >
+                  Quero Ser Motorista
+                </Link>
 
-                  <Link
-                    href="https://connect.maylon.com.br"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="
-                      block
-                      px-4
-                      py-3
-                      text-[12px]
-                      transition
-                      hover:bg-gray-100
-                      hover:text-[#35a889]
-                    "
-                  >
-                    Maylon Connect
-                  </Link>
-                </div>
-              )}
+                {/* Maylon Connect */}
+                <Link
+                  href="https://connect.maylon.com.br"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    block
+                    px-4
+                    py-3
+                    text-[12px]
+                    transition
+                    hover:bg-gray-100
+                    hover:text-[#35a889]
+                  "
+                >
+                  Maylon Connect
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -281,10 +294,9 @@ export default function Navbar() {
           transition-all
           duration-300
           md:hidden
-          ${
-            isOpen
-              ? 'max-h-[1000px] opacity-100'
-              : 'pointer-events-none max-h-0 overflow-hidden opacity-0'
+          ${isOpen
+            ? 'max-h-[1000px] opacity-100'
+            : 'pointer-events-none max-h-0 overflow-hidden opacity-0'
           }
         `}
       >
@@ -429,10 +441,9 @@ export default function Navbar() {
                 grid
                 transition-all
                 duration-300
-                ${
-                  open
-                    ? 'mt-2 grid-rows-[1fr] opacity-100'
-                    : 'grid-rows-[0fr] opacity-0'
+                ${open
+                  ? 'mt-2 grid-rows-[1fr] opacity-100'
+                  : 'grid-rows-[0fr] opacity-0'
                 }
               `}
             >
