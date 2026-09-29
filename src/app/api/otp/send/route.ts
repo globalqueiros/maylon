@@ -9,10 +9,10 @@ const client = twilio(
 
 export async function POST(req: Request) {
     const db = await mysql.createConnection({
-        host: process.env.DB2_HOST,
-        user: process.env.DB2_USER,
-        password: process.env.DB2_PASSWORD,
-        database: process.env.DB2_NAME,
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
     });
     try {
         const { phone } = await req.json();
