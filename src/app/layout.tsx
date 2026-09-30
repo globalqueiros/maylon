@@ -5,6 +5,7 @@ import Navbar from '../app/components/navbar';
 import Footer from '../app/components/footer';
 import Script from "next/script";
 import VLibras from "../lib/vlibras";
+import CookieBanner from "../app/components/CookieBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -79,6 +80,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
