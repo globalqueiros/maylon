@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import Swal from "sweetalert2";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -24,6 +23,7 @@ import {
   Phone,
   FileText,
   X,
+  AlertCircle,
 } from "lucide-react";
 
 import "swiper/css";
@@ -92,6 +92,13 @@ const adBenefits = [
   },
 ];
 
+type AlertType = "success" | "danger";
+
+interface AlertState {
+  type: AlertType;
+  message: string;
+}
+
 export default function Home() {
   const [trips, setTrips] = useState(1);
   const [valuePerTrip, setValuePerTrip] = useState(9.5);
@@ -101,24 +108,53 @@ export default function Home() {
 
   const [enviandoRendaExtra, setEnviandoRendaExtra] = useState(false);
 
-  // Estado do telefone com máscara
+  // Telefone com máscara
   const [telefoneRenda, setTelefoneRenda] = useState("");
+
+  // ALERTA
+  const [alert, setAlert] = useState<AlertState | null>(null);
 
   const total = useMemo(
     () => trips * valuePerTrip,
     [trips, valuePerTrip]
   );
 
-  const mostrarAlerta = () => {
-    Swal.fire({
-      title:
-        "Atualmente, o setor comercial não dispõe de atendimento pelo WhatsApp.",
-      icon: "warning",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#3085d6",
+  /*
+   * =========================================================
+   * ALERTA TOGGLE
+   * =========================================================
+   */
+  const mostrarAlerta = (
+    type: AlertType,
+    message: string
+  ) => {
+    setAlert({
+      type,
+      message,
     });
+
+    setTimeout(() => {
+      setAlert(null);
+    }, 4000);
   };
 
+  /*
+   * =========================================================
+   * ALERTA COMERCIAL
+   * =========================================================
+   */
+  const alertaComercial = () => {
+    mostrarAlerta(
+      "danger",
+      "Atualmente, o setor comercial não dispõe de atendimento pelo WhatsApp."
+    );
+  };
+
+  /*
+   * =========================================================
+   * FORMATAR VALOR
+   * =========================================================
+   */
   const formatarValor = (valor: number) =>
     valor.toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
@@ -126,8 +162,10 @@ export default function Home() {
     });
 
   /*
+   * =========================================================
    * MÁSCARA DE TELEFONE
    * Formato: (00) 00000-0000
+   * =========================================================
    */
   const formatarTelefone = (valor: string) => {
     const numeros = valor.replace(/\D/g, "").slice(0, 11);
@@ -151,7 +189,9 @@ export default function Home() {
   };
 
   /*
+   * =========================================================
    * ENVIO DO FORMULÁRIO DE RENDA EXTRA
+   * =========================================================
    */
   const enviarRendaExtra = async (
     e: React.FormEvent<HTMLFormElement>
@@ -160,50 +200,49 @@ export default function Home() {
 
     if (enviandoRendaExtra) return;
 
-    setEnviandoRendaExtra(true);
-
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     const nome = String(formData.get("nome") || "").trim();
-    const telefone = String(formData.get("telefone") || "").trim();
-    const produto = String(formData.get("produto") || "").trim();
+    const telefone = String(
+      formData.get("telefone") || ""
+    ).trim();
+    const produto = String(
+      formData.get("produto") || ""
+    ).trim();
     const observacoes = String(
       formData.get("observacoes") || ""
     ).trim();
 
+    /*
+     * VALIDAÇÃO
+     */
     if (!nome || !telefone || !produto) {
-      setEnviandoRendaExtra(false);
-
-      await Swal.fire({
-        title: "Preencha os campos obrigatórios",
-        text: "Nome, telefone e produto são obrigatórios.",
-        icon: "warning",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#0b6e4f",
-      });
+      mostrarAlerta(
+        "danger",
+        "Preencha o nome, telefone e produto antes de enviar."
+      );
 
       return;
     }
 
-    // Verifica se possui 11 dígitos
+    /*
+     * VALIDA TELEFONE
+     */
     const telefoneNumeros = telefone.replace(/\D/g, "");
 
     if (telefoneNumeros.length !== 11) {
-      setEnviandoRendaExtra(false);
-
-      await Swal.fire({
-        title: "Telefone inválido",
-        text: "Digite um telefone celular válido com DDD.",
-        icon: "warning",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#0b6e4f",
-      });
+      mostrarAlerta(
+        "danger",
+        "Digite um telefone celular válido com DDD."
+      );
 
       return;
     }
 
     try {
+      setEnviandoRendaExtra(true);
+
       const response = await fetch("/api/renda-extra", {
         method: "POST",
         headers: {
@@ -217,46 +256,57 @@ export default function Home() {
         }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok || !data.success) {
         throw new Error(
-          data.message || "Não foi possível enviar o cadastro."
+          data.message ||
+          "Não foi possível enviar o cadastro."
         );
       }
 
+      /*
+       * LIMPA FORMULÁRIO
+       */
       form.reset();
 
-      // Limpa o telefone controlado
       setTelefoneRenda("");
 
+      /*
+       * FECHA MODAL
+       */
       setModalRendaExtra(false);
 
-      await Swal.fire({
-        title: "Cadastro enviado!",
-        text: "Recebemos seu interesse em fazer renda extra. A Maylon entrará em contato.",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#0b6e4f",
-      });
+      /*
+       * ALERTA DE SUCESSO
+       */
+      mostrarAlerta(
+        "success",
+        data.message ||
+        "Cadastro enviado com sucesso! A Maylon entrará em contato."
+      );
     } catch (error) {
-      console.error("Erro ao enviar renda extra:", error);
+      console.error(
+        "Erro ao enviar renda extra:",
+        error
+      );
 
-      await Swal.fire({
-        title: "Não foi possível enviar",
-        text:
-          error instanceof Error
-            ? error.message
-            : "Ocorreu um erro ao enviar seu cadastro. Tente novamente.",
-        icon: "error",
-        confirmButtonText: "Tentar novamente",
-        confirmButtonColor: "#0b6e4f",
-      });
+      mostrarAlerta(
+        "danger",
+        error instanceof Error
+          ? error.message
+          : "Ocorreu um erro ao enviar seu cadastro. Tente novamente."
+      );
     } finally {
       setEnviandoRendaExtra(false);
     }
   };
 
+  /*
+   * =========================================================
+   * FECHAR MODAL RENDA EXTRA
+   * =========================================================
+   */
   const fecharModalRendaExtra = () => {
     if (enviandoRendaExtra) return;
 
@@ -267,11 +317,72 @@ export default function Home() {
   return (
     <>
       {/* =========================================================
+          ALERTA TOGGLE
+      ========================================================= */}
+      {alert && (
+        <div
+          role="alert"
+          className={`fixed right-4 top-4 z-[99999] w-[calc(100%-2rem)] max-w-md overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl ${alert.type === "success"
+              ? "border-green-200 bg-green-50 text-green-800"
+              : "border-red-200 bg-red-50 text-red-800"
+            }`}
+        >
+          <div className="flex items-start gap-3 p-4">
+            {/* ÍCONE */}
+            <div
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${alert.type === "success"
+                  ? "bg-green-100 text-green-600"
+                  : "bg-red-100 text-red-600"
+                }`}
+            >
+              {alert.type === "success" ? (
+                <CheckCircle2 className="h-5 w-5" />
+              ) : (
+                <AlertCircle className="h-5 w-5" />
+              )}
+            </div>
+
+            {/* TEXTO */}
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-black">
+                {alert.type === "success"
+                  ? "Sucesso!"
+                  : "Atenção"}
+              </p>
+
+              <p className="mt-1 text-sm leading-5 opacity-90">
+                {alert.message}
+              </p>
+            </div>
+
+            {/* FECHAR */}
+            <button
+              type="button"
+              onClick={() => setAlert(null)}
+              className="shrink-0 rounded-lg p-1 opacity-50 transition hover:bg-black/5 hover:opacity-100"
+              aria-label="Fechar alerta"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* BARRA DE TEMPO */}
+          <div
+            className={`h-1 w-full ${alert.type === "success"
+                ? "bg-green-500"
+                : "bg-red-500"
+              }`}
+          />
+        </div>
+      )}
+
+      {/* =========================================================
           HERO
       ========================================================= */}
       <section className="relative overflow-hidden bg-[#f7f9fb] py-8 sm:py-10 md:py-12">
         <div className="absolute inset-0">
           <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-emerald-200/30 blur-3xl" />
+
           <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-teal-200/20 blur-3xl" />
         </div>
 
@@ -298,6 +409,7 @@ export default function Home() {
                     <h3 className="text-3xl font-black text-[#2BA27F]">
                       24h
                     </h3>
+
                     <p className="mt-2 text-sm text-black">
                       Suporte especializado
                     </p>
@@ -307,6 +419,7 @@ export default function Home() {
                     <h3 className="text-3xl font-black text-[#2BA27F]">
                       100%
                     </h3>
+
                     <p className="mt-2 text-sm text-black">
                       Cadastro online
                     </p>
@@ -536,7 +649,7 @@ export default function Home() {
 
                 <button
                   type="button"
-                  onClick={mostrarAlerta}
+                  onClick={alertaComercial}
                   className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[#0b6e4f] bg-white/70 px-6 py-3 text-sm font-bold text-[#0b6e4f] transition hover:bg-white"
                 >
                   Falar com Comercial
@@ -610,7 +723,9 @@ export default function Home() {
                     min={1}
                     max={500}
                     value={trips}
-                    onChange={(e) => setTrips(Number(e.target.value))}
+                    onChange={(e) =>
+                      setTrips(Number(e.target.value))
+                    }
                     className="w-full accent-white"
                   />
                 </div>
@@ -633,7 +748,9 @@ export default function Home() {
                     step={0.5}
                     value={valuePerTrip}
                     onChange={(e) =>
-                      setValuePerTrip(Number(e.target.value))
+                      setValuePerTrip(
+                        Number(e.target.value)
+                      )
                     }
                     className="w-full accent-white"
                   />
@@ -669,42 +786,43 @@ export default function Home() {
                 produtos.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="w-full rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
                   <p className="text-sm font-bold text-gray-900">
                     Docinhos
                   </p>
 
-                  <p className="text-xs text-gray-500">
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">
                     Brigadeiros, bolos e doces
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+                <div className="w-full rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
                   <p className="text-sm font-bold text-gray-900">
                     Alimentos
                   </p>
 
-                  <p className="text-xs text-gray-500">
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">
                     Lanches e produtos caseiros
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+                <div className="w-full rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
                   <p className="text-sm font-bold text-gray-900">
                     Outros produtos
                   </p>
 
-                  <p className="text-xs text-gray-500">
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">
                     Acessórios, cosméticos e mais
                   </p>
                 </div>
               </div>
-
-              <div className="mt-7">
+              <div className="mt-5">
                 <button
                   type="button"
-                  onClick={() => setModalRendaExtra(true)}
+                  onClick={() =>
+                    setModalRendaExtra(true)
+                  }
                   className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0b6e4f] px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#095a41] hover:shadow-xl"
                 >
                   Quero vender e fazer renda extra
@@ -1050,7 +1168,7 @@ export default function Home() {
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                 <button
-                  onClick={mostrarAlerta}
+                  onClick={alertaComercial}
                   className="cursor-pointer rounded-full bg-white px-8 py-3 text-center text-sm font-semibold text-[#0b6e4f] shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   Falar com Comercial
@@ -1190,7 +1308,7 @@ export default function Home() {
                 </p>
 
                 <button
-                  onClick={mostrarAlerta}
+                  onClick={alertaComercial}
                   className="w-full cursor-pointer rounded-full bg-emerald-500 px-8 py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-emerald-400 hover:shadow-[0_10px_40px_rgba(16,185,129,0.35)] sm:w-auto sm:px-10 sm:py-4"
                 >
                   Solicitar proposta
@@ -1369,7 +1487,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* DESCRIÇÃO */}
+              {/* OBSERVAÇÕES */}
               <div>
                 <label
                   htmlFor="renda-observacoes"
@@ -1398,7 +1516,7 @@ export default function Home() {
                   type="button"
                   disabled={enviandoRendaExtra}
                   onClick={fecharModalRendaExtra}
-                  className="rounded-2xl cursor-pointer border border-slate-200 px-5 py-3 text-sm font-bold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="cursor-pointer rounded-2xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Cancelar
                 </button>
