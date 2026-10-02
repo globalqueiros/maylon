@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -19,6 +20,9 @@ import {
   ShieldCheck,
   ShoppingBag,
   Users,
+  User,
+  Phone,
+  FileText,
   X,
 } from "lucide-react";
 
@@ -91,13 +95,24 @@ const adBenefits = [
 export default function Home() {
   const [trips, setTrips] = useState(1);
   const [valuePerTrip, setValuePerTrip] = useState(9.5);
-  const [openModal, setOpenModal] = useState(false);
 
-  const total = useMemo(() => trips * valuePerTrip, [trips, valuePerTrip]);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalRendaExtra, setModalRendaExtra] = useState(false);
+
+  const [enviandoRendaExtra, setEnviandoRendaExtra] = useState(false);
+
+  // Estado do telefone com máscara
+  const [telefoneRenda, setTelefoneRenda] = useState("");
+
+  const total = useMemo(
+    () => trips * valuePerTrip,
+    [trips, valuePerTrip]
+  );
 
   const mostrarAlerta = () => {
     Swal.fire({
-      title: "Atualmente, o setor comercial não dispõe de atendimento pelo WhatsApp.",
+      title:
+        "Atualmente, o setor comercial não dispõe de atendimento pelo WhatsApp.",
       icon: "warning",
       confirmButtonText: "OK",
       confirmButtonColor: "#3085d6",
@@ -110,8 +125,150 @@ export default function Home() {
       maximumFractionDigits: 2,
     });
 
+  /*
+   * MÁSCARA DE TELEFONE
+   * Formato: (00) 00000-0000
+   */
+  const formatarTelefone = (valor: string) => {
+    const numeros = valor.replace(/\D/g, "").slice(0, 11);
+
+    if (numeros.length === 0) {
+      return "";
+    }
+
+    if (numeros.length <= 2) {
+      return `(${numeros}`;
+    }
+
+    if (numeros.length <= 7) {
+      return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+    }
+
+    return `(${numeros.slice(0, 2)}) ${numeros.slice(
+      2,
+      7
+    )}-${numeros.slice(7)}`;
+  };
+
+  /*
+   * ENVIO DO FORMULÁRIO DE RENDA EXTRA
+   */
+  const enviarRendaExtra = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (enviandoRendaExtra) return;
+
+    setEnviandoRendaExtra(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const nome = String(formData.get("nome") || "").trim();
+    const telefone = String(formData.get("telefone") || "").trim();
+    const produto = String(formData.get("produto") || "").trim();
+    const observacoes = String(
+      formData.get("observacoes") || ""
+    ).trim();
+
+    if (!nome || !telefone || !produto) {
+      setEnviandoRendaExtra(false);
+
+      await Swal.fire({
+        title: "Preencha os campos obrigatórios",
+        text: "Nome, telefone e produto são obrigatórios.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0b6e4f",
+      });
+
+      return;
+    }
+
+    // Verifica se possui 11 dígitos
+    const telefoneNumeros = telefone.replace(/\D/g, "");
+
+    if (telefoneNumeros.length !== 11) {
+      setEnviandoRendaExtra(false);
+
+      await Swal.fire({
+        title: "Telefone inválido",
+        text: "Digite um telefone celular válido com DDD.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0b6e4f",
+      });
+
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/renda-extra", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome,
+          telefone,
+          produto,
+          observacoes,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Não foi possível enviar o cadastro."
+        );
+      }
+
+      form.reset();
+
+      // Limpa o telefone controlado
+      setTelefoneRenda("");
+
+      setModalRendaExtra(false);
+
+      await Swal.fire({
+        title: "Cadastro enviado!",
+        text: "Recebemos seu interesse em fazer renda extra. A Maylon entrará em contato.",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0b6e4f",
+      });
+    } catch (error) {
+      console.error("Erro ao enviar renda extra:", error);
+
+      await Swal.fire({
+        title: "Não foi possível enviar",
+        text:
+          error instanceof Error
+            ? error.message
+            : "Ocorreu um erro ao enviar seu cadastro. Tente novamente.",
+        icon: "error",
+        confirmButtonText: "Tentar novamente",
+        confirmButtonColor: "#0b6e4f",
+      });
+    } finally {
+      setEnviandoRendaExtra(false);
+    }
+  };
+
+  const fecharModalRendaExtra = () => {
+    if (enviandoRendaExtra) return;
+
+    setTelefoneRenda("");
+    setModalRendaExtra(false);
+  };
+
   return (
     <>
+      {/* =========================================================
+          HERO
+      ========================================================= */}
       <section className="relative overflow-hidden bg-[#f7f9fb] py-8 sm:py-10 md:py-12">
         <div className="absolute inset-0">
           <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-emerald-200/30 blur-3xl" />
@@ -138,14 +295,18 @@ export default function Home() {
 
                 <div className="mt-7 grid grid-cols-2 gap-5">
                   <div className="rounded-3xl border border-zinc-100 bg-zinc-50 p-6">
-                    <h3 className="text-3xl font-black text-[#2BA27F]">24h</h3>
+                    <h3 className="text-3xl font-black text-[#2BA27F]">
+                      24h
+                    </h3>
                     <p className="mt-2 text-sm text-black">
                       Suporte especializado
                     </p>
                   </div>
 
                   <div className="rounded-3xl border border-zinc-100 bg-zinc-50 p-6">
-                    <h3 className="text-3xl font-black text-[#2BA27F]">100%</h3>
+                    <h3 className="text-3xl font-black text-[#2BA27F]">
+                      100%
+                    </h3>
                     <p className="mt-2 text-sm text-black">
                       Cadastro online
                     </p>
@@ -158,9 +319,16 @@ export default function Home() {
                     className="group m-auto inline-flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-4 font-semibold text-white transition-all hover:bg-emerald-600"
                   >
                     Quero ser motorista
+
                     <motion.div
-                      whileHover={{ x: [0, 4, 0], y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity }}
+                      whileHover={{
+                        x: [0, 4, 0],
+                        y: [0, -4, 0],
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        repeat: Infinity,
+                      }}
                     >
                       <ArrowUpRight className="h-5 w-5 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:rotate-12" />
                     </motion.div>
@@ -170,10 +338,15 @@ export default function Home() {
 
               <div className="relative hidden items-center justify-center overflow-hidden bg-[url('/bg-cidades.png')] bg-cover bg-center bg-no-repeat px-8 py-8 xl:flex">
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/30 via-white/20 to-teal-900/20" />
+
                 <div className="absolute left-10 top-10 h-44 w-44 rounded-full bg-emerald-400/20 blur-3xl" />
+
                 <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-teal-300/20 blur-3xl" />
+
                 <div className="absolute h-[500px] w-[500px] rounded-full border border-white/20" />
+
                 <div className="absolute h-[380px] w-[380px] rounded-full border border-white/30" />
+
                 <div className="absolute h-[250px] w-[250px] rounded-full bg-white/20 blur-[100px]" />
 
                 <Image
@@ -190,6 +363,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          BENEFÍCIOS
+      ========================================================= */}
       <section className="bg-white py-10">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-8">
@@ -250,22 +426,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          MAYLON STORE
+      ========================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#e8fff7] via-[#d5f5eb] to-[#b8e8d8] py-10">
         <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-300/40 blur-3xl" />
+
         <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-teal-400/30 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="relative flex items-center justify-center">
               <div className="absolute h-80 w-80 rounded-full border border-emerald-900/10" />
+
               <div className="absolute h-60 w-60 rounded-full border border-emerald-900/10" />
+
               <div className="absolute h-40 w-40 rounded-full bg-white/50 blur-xl" />
 
               <div className="relative z-10 flex h-[360px] w-full max-w-[560px] items-center justify-center">
                 <div className="absolute bottom-8 left-1/2 h-8 w-72 -translate-x-1/2 rounded-full bg-emerald-900/20 blur-xl" />
 
                 <div className="grid w-full grid-cols-2 items-center gap-2">
-                  {/* Lado esquerdo: círculos decorativos */}
                   <div className="relative flex h-[300px] w-full items-center justify-center">
                     <div className="absolute h-64 w-64 rounded-full border border-emerald-900/10" />
 
@@ -278,7 +459,6 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Lado direito: imagem dos produtos */}
                   <div className="relative flex h-[300px] w-full items-center justify-center">
                     <Image
                       src="/pecas.png"
@@ -322,8 +502,9 @@ export default function Home() {
               </h2>
 
               <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-zinc-700 lg:mx-0">
-                Encontre pneus, filtros, óleos, acessórios e peças automotivas com
-                qualidade, preços especiais e praticidade para continuar rodando. Disponível no portal do motorista.
+                Encontre pneus, filtros, óleos, acessórios e peças automotivas
+                com qualidade, preços especiais e praticidade para continuar
+                rodando. Disponível no portal do motorista.
               </p>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
@@ -367,6 +548,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          CALCULADORA
+      ========================================================= */}
       <section className="bg-gradient-to-br from-[#35a989] via-[#2f9d80] to-[#58d68d] py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <div className="overflow-hidden rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl">
@@ -377,7 +561,8 @@ export default function Home() {
                 </h2>
 
                 <p className="mt-3 max-w-xl text-sm leading-7 text-white/80 sm:text-base">
-                  Descubra automaticamente quanto você pode faturar mensalmente.
+                  Descubra automaticamente quanto você pode faturar
+                  mensalmente.
                 </p>
 
                 <div className="mt-6 rounded-3xl bg-white p-5 shadow-2xl sm:p-6 md:p-8">
@@ -393,7 +578,10 @@ export default function Home() {
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"
                       style={{
-                        width: `${Math.min((total / 50000) * 100, 100)}%`,
+                        width: `${Math.min(
+                          (total / 50000) * 100,
+                          100
+                        )}%`,
                       }}
                     />
                   </div>
@@ -456,13 +644,159 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          RENDA EXTRA
+      ========================================================= */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#f3fffa] via-white to-[#e5f7f0] py-10 sm:py-10">
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-300/20 blur-3xl" />
+
+        <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-teal-300/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12">
+          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+            <div>
+              <h2 className="mt-4 text-3xl font-black leading-tight text-gray-900 sm:text-4xl">
+                Quer fazer uma
+                <span className="block text-[#0b6e4f]">
+                  renda extra?
+                </span>
+              </h2>
+
+              <p className="mt-4 max-w-xl text-justify text-sm leading-6 text-gray-700 sm:text-sm">
+                Venda seus próprios produtos e transforme seu tempo livre em
+                uma oportunidade de renda. Você pode vender docinhos,
+                alimentos, acessórios, cosméticos, artesanato e outros
+                produtos.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-sm font-bold text-gray-900">
+                    Docinhos
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Brigadeiros, bolos e doces
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-sm font-bold text-gray-900">
+                    Alimentos
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Lanches e produtos caseiros
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-sm font-bold text-gray-900">
+                    Outros produtos
+                  </p>
+
+                  <p className="text-xs text-gray-500">
+                    Acessórios, cosméticos e mais
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-7">
+                <button
+                  type="button"
+                  onClick={() => setModalRendaExtra(true)}
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0b6e4f] px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#095a41] hover:shadow-xl"
+                >
+                  Quero vender e fazer renda extra
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="relative flex items-center justify-center">
+              <div className="absolute h-[75%] w-[75%] rounded-full bg-emerald-300/30 blur-3xl" />
+
+              <div className="relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[28px]">
+                <Image
+                  src="/maylon_store.png"
+                  alt="Maylon Store - oportunidade para fazer renda extra vendendo produtos"
+                  width={1200}
+                  height={1024}
+                  priority
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 55vw, 440px"
+                  className="relative z-10 h-auto w-full object-contain drop-shadow-xl transition-transform duration-700 hover:scale-[1.02]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="rounded-[28px] border border-emerald-100 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100">
+                <ShoppingBag className="h-6 w-6 text-[#0b6e4f]" />
+              </div>
+
+              <h3 className="mt-5 text-lg font-black text-gray-900">
+                Venda seus produtos
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Aproveite seus talentos e produtos para criar uma nova fonte
+                de renda.
+              </p>
+            </div>
+
+            <div className="rounded-[28px] border border-emerald-100 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100">
+                <CheckCircle2 className="h-6 w-6 text-[#0b6e4f]" />
+              </div>
+
+              <h3 className="mt-5 text-lg font-black text-gray-900">
+                Comece com o que você já faz
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Docinhos, salgados, produtos artesanais ou outros itens que
+                você já produz podem se transformar em oportunidade.
+              </p>
+            </div>
+
+            <div className="rounded-[28px] border border-emerald-100 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:col-span-2">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 className="text-lg font-black text-gray-900">
+                    Uma oportunidade para quem quer empreender
+                  </h3>
+
+                  <p className="mt-1 text-sm leading-6 text-gray-600">
+                    Tenha mais uma alternativa para complementar sua renda
+                    vendendo produtos e divulgando seu trabalho.
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-bold text-[#0b6e4f]">
+                  <CheckCircle2 className="h-4 w-4" />
+                  Renda extra
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          VAN ESCOLAR
+      ========================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#f7fdfb] to-[#e9f7f2] py-10 sm:py-10">
         <div className="absolute -left-32 -top-32 h-[300px] w-[300px] rounded-full bg-[#35a989]/20 blur-3xl" />
+
         <div className="absolute -bottom-32 -right-32 h-[320px] w-[320px] rounded-full bg-[#35a989]/20 blur-3xl" />
+
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12">
           <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
             <div className="relative flex items-center justify-center lg:order-1">
               <div className="absolute h-[280px] w-[280px] rounded-full bg-[#35a989]/20 blur-3xl sm:h-[380px] sm:w-[380px]" />
+
               <div className="relative w-full max-w-[600px]">
                 <div className="relative hidden w-full lg:block">
                   <Image
@@ -473,15 +807,18 @@ export default function Home() {
                     priority
                     className="relative z-10 block h-auto w-full object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.18)] transition duration-500 hover:scale-[1.03]"
                   />
+
                   <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
                     <div className="flex items-center gap-2 rounded-full border border-white/80 bg-white/95 px-4 py-2 shadow-lg backdrop-blur sm:px-5 sm:py-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#35a989] text-white">
                         <School size={19} />
                       </div>
+
                       <div>
                         <p className="text-[10px] font-medium uppercase tracking-wide text-gray-500">
                           Serviço Maylon
                         </p>
+
                         <p className="text-sm font-black text-gray-900 sm:text-base">
                           Van Escolar
                         </p>
@@ -491,45 +828,56 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
             <div className="text-center lg:order-2 lg:text-left">
               <h2 className="text-3xl font-black text-gray-900 sm:text-3xl md:text-3xl">
                 Transporte escolar
                 <br />
                 com a{" "}
-                <span className="text-[#35a989]">Maylon Van Escolar</span>
+                <span className="text-[#35a989]">
+                  Maylon Van Escolar
+                </span>
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-gray-700 text-justify sm:text-sm lg:mx-0">
+
+              <p className="mx-auto mt-4 max-w-2xl text-justify text-sm leading-6 text-gray-700 sm:text-sm lg:mx-0">
                 Conte com a Maylon para transporte escolar com mais conforto,
                 segurança e pontualidade. Uma solução pensada para levar alunos
                 diariamente com tranquilidade e praticidade.
               </p>
+
               <div className="mt-3 grid grid-cols-1 gap-3 min-[450px]:grid-cols-2">
                 <div className="flex items-center gap-3 rounded-2xl border border-[#35a989]/10 bg-white px-4 py-4 text-left shadow-sm">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f7f3] text-[#35a989]">
                     <ShieldCheck size={20} />
                   </div>
+
                   <div>
                     <p className="text-sm font-bold text-gray-900">
                       Mais segurança
                     </p>
+
                     <p className="text-xs text-gray-500">
                       Transporte com tranquilidade
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-center gap-3 rounded-2xl border border-[#35a989]/10 bg-white px-4 py-4 text-left shadow-sm">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f7f3] text-[#35a989]">
                     <Clock3 size={20} />
                   </div>
+
                   <div>
                     <p className="text-sm font-bold text-gray-900">
                       Pontualidade
                     </p>
+
                     <p className="text-xs text-gray-500">
                       Horários planejados
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-center gap-3 rounded-2xl border border-[#35a989]/10 bg-white px-4 py-4 text-left shadow-sm">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f7f3] text-[#35a989]">
                     <Users size={20} />
@@ -539,11 +887,13 @@ export default function Home() {
                     <p className="text-sm font-bold text-gray-900">
                       Transporte coletivo
                     </p>
+
                     <p className="text-xs text-gray-500">
                       Ideal para grupos de alunos
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-center gap-3 rounded-2xl border border-[#35a989]/10 bg-white px-4 py-4 text-left shadow-sm">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f7f3] text-[#35a989]">
                     <MapPin size={20} />
@@ -553,6 +903,7 @@ export default function Home() {
                     <p className="text-sm font-bold text-gray-900">
                       Rotas programadas
                     </p>
+
                     <p className="text-xs text-gray-500">
                       Rotas organizadas
                     </p>
@@ -570,13 +921,16 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
+      {/* =========================================================
+          RESERVA
+      ========================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#f7fdfb] to-[#e9f7f2] py-10">
         <div className="absolute -left-32 -top-32 h-[300px] w-[300px] rounded-full bg-[#35a989]/20 blur-3xl" />
+
         <div className="absolute -bottom-32 -right-32 h-[320px] w-[320px] rounded-full bg-[#3bab88]/20 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12">
@@ -640,10 +994,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          MAYLON ADS
+      ========================================================= */}
       <section className="relative overflow-hidden bg-[#0b6e4f] py-10 sm:py-12">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -left-28 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-emerald-400/20 blur-3xl sm:h-[350px] sm:w-[350px] lg:h-[500px] lg:w-[500px]" />
+
           <div className="absolute -right-20 top-10 h-[250px] w-[250px] rounded-full bg-emerald-300/10 blur-3xl sm:h-[320px] sm:w-[320px] lg:h-[380px] lg:w-[380px]" />
+
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:35px_35px] sm:bg-[size:45px_45px] lg:bg-[size:55px_55px]" />
         </div>
 
@@ -652,6 +1011,7 @@ export default function Home() {
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-xl">
                 <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300" />
+
                 <span className="text-xs font-medium text-emerald-100 sm:text-sm">
                   Agência Glowx
                 </span>
@@ -741,12 +1101,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================
+          MODAL MAYLON ADS
+      ========================================================= */}
       {openModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 p-4 backdrop-blur-md sm:p-6 lg:p-8">
           <div className="flex min-h-full items-center justify-center">
             <div className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/10 bg-[#071018] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
-              <div className="absolute inset-0 pointer-events-none">
+              <div className="pointer-events-none absolute inset-0">
                 <div className="absolute left-0 top-0 h-52 w-52 rounded-full bg-emerald-500/10 blur-3xl sm:h-72 sm:w-72 lg:h-[300px] lg:w-[300px]" />
+
                 <div className="absolute bottom-0 right-0 h-44 w-44 rounded-full bg-emerald-400/10 blur-3xl sm:h-60 sm:w-60 lg:h-[250px] lg:w-[250px]" />
               </div>
 
@@ -837,8 +1201,237 @@ export default function Home() {
         </div>
       )}
 
+      {/* =========================================================
+          MODAL RENDA EXTRA
+      ========================================================= */}
+      {modalRendaExtra && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
+          onClick={fecharModalRendaExtra}
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[28px] bg-white p-6 shadow-2xl sm:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* FECHAR */}
+            <button
+              type="button"
+              disabled={enviandoRendaExtra}
+              onClick={fecharModalRendaExtra}
+              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition hover:bg-slate-200 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="Fechar"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* CABEÇALHO */}
+            <div className="pr-10">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100">
+                <ShoppingBag className="h-6 w-6 text-[#0b6e4f]" />
+              </div>
+
+              <h2 className="text-2xl font-black text-gray-900">
+                Quero fazer renda extra
+              </h2>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Preencha seus dados e conte para a Maylon quais produtos você
+                gostaria de vender.
+              </p>
+            </div>
+
+            {/* FORMULÁRIO */}
+            <form
+              className="mt-6 space-y-4"
+              onSubmit={enviarRendaExtra}
+            >
+              {/* NOME */}
+              <div>
+                <label
+                  htmlFor="renda-nome"
+                  className="mb-2 block text-sm font-bold text-gray-800"
+                >
+                  Nome completo
+                </label>
+
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+
+                  <input
+                    id="renda-nome"
+                    name="nome"
+                    type="text"
+                    required
+                    disabled={enviandoRendaExtra}
+                    placeholder="Digite seu nome completo"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm capitalize text-gray-900 outline-none transition focus:border-[#0b6e4f] focus:bg-white focus:ring-2 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* TELEFONE */}
+              <div>
+                <label
+                  htmlFor="renda-telefone"
+                  className="mb-2 block text-sm font-bold text-gray-800"
+                >
+                  WhatsApp / Telefone
+                </label>
+
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+
+                  <input
+                    id="renda-telefone"
+                    name="telefone"
+                    type="tel"
+                    required
+                    disabled={enviandoRendaExtra}
+                    value={telefoneRenda}
+                    onChange={(e) => {
+                      setTelefoneRenda(
+                        formatarTelefone(e.target.value)
+                      );
+                    }}
+                    maxLength={15}
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    placeholder="(00) 00000-0000"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm text-gray-900 outline-none transition focus:border-[#0b6e4f] focus:bg-white focus:ring-2 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* PRODUTO */}
+              <div>
+                <label
+                  htmlFor="renda-produto"
+                  className="mb-2 block text-sm font-bold text-gray-800"
+                >
+                  O que você gostaria de vender?
+                </label>
+
+                <div className="relative">
+                  <ShoppingBag className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+
+                  <select
+                    id="renda-produto"
+                    name="produto"
+                    required
+                    defaultValue=""
+                    disabled={enviandoRendaExtra}
+                    className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm text-gray-900 outline-none transition focus:border-[#0b6e4f] focus:bg-white focus:ring-2 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <option value="" disabled>
+                      Selecione uma opção
+                    </option>
+
+                    <option value="doces">
+                      Doces, balas e chocolates
+                    </option>
+
+                    <option value="perfumes">
+                      Perfumes
+                    </option>
+
+                    <option value="cosmeticos">
+                      Cosméticos e cuidados pessoais
+                    </option>
+
+                    <option value="acessorios">
+                      Acessórios e bijuterias
+                    </option>
+
+                    <option value="alimentos">
+                      Alimentos e lanches
+                    </option>
+
+                    <option value="bebidas">
+                      Bebidas
+                    </option>
+
+                    <option value="artesanato">
+                      Artesanato
+                    </option>
+
+                    <option value="roupas">
+                      Roupas e vestuário
+                    </option>
+
+                    <option value="eletronicos">
+                      Eletrônicos e acessórios
+                    </option>
+
+                    <option value="outros">
+                      Outros produtos
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              {/* DESCRIÇÃO */}
+              <div>
+                <label
+                  htmlFor="renda-observacoes"
+                  className="mb-2 block text-sm font-bold text-gray-800"
+                >
+                  Por que você gostaria de vender esse produto? (opcional)
+                </label>
+
+                <div className="relative">
+                  <FileText className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+
+                  <textarea
+                    id="renda-observacoes"
+                    name="observacoes"
+                    rows={4}
+                    disabled={enviandoRendaExtra}
+                    placeholder="Por que você gostaria de vender esse produto..."
+                    className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm text-gray-900 outline-none transition focus:border-[#0b6e4f] focus:bg-white focus:ring-2 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* BOTÕES */}
+              <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
+                <button
+                  type="button"
+                  disabled={enviandoRendaExtra}
+                  onClick={fecharModalRendaExtra}
+                  className="rounded-2xl cursor-pointer border border-slate-200 px-5 py-3 text-sm font-bold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={enviandoRendaExtra}
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#0b6e4f] px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#095a41] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {enviandoRendaExtra ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Enviar cadastro
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================
+          CTA MOTORISTA
+      ========================================================= */}
       <section className="relative my-3 overflow-hidden bg-gradient-to-br from-[#35a989] via-[#0c664d] to-[#0ec996] px-6 py-8 sm:px-10 lg:px-14">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+
         <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
 
         <div className="relative z-10 flex flex-col items-center justify-between gap-10 lg:flex-row">
@@ -893,7 +1486,7 @@ export default function Home() {
 
             <Link
               href="/quero_ser_motorista"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-4xl bg-emerald-600 px-6 py-4 text-base font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-lg"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-4 text-base font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-lg"
             >
               Cadastrar-me como motorista
               <ArrowRight className="h-5 w-5" />
