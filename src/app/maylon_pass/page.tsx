@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type PlanId = "basico" | "plus" | "premium";
 
@@ -117,11 +118,12 @@ const additionalServices: AdditionalService[] = [
 ];
 
 export default function MaylonPassPage() {
+
   const [selectedPlan, setSelectedPlan] = useState<PlanId>("plus");
-
   const [paymentMethod, setPaymentMethod] = useState<"card" | "pix">("card");
-
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter(); // Inicialize o router
 
   const currentPlan = useMemo(
     () =>
@@ -165,8 +167,9 @@ export default function MaylonPassPage() {
     );
   };
 
-  const handleSubscribe = () => {
-    console.log("Assinar Maylon Pass", {
+  const handleSubscribe = async () => {
+
+    /* console.log("Assinar Maylon Pass", {
       plano: currentPlan.id,
       nomePlano: currentPlan.name,
       pagamento: paymentMethod,
@@ -174,8 +177,50 @@ export default function MaylonPassPage() {
       valorPlano: planPrice,
       valorAdicional: additionalTotal,
       totalMensal: monthlyTotal,
-    });
-  };
+    }); */
+
+    if (paymentMethod === "pix") {
+      const params = new URLSearchParams({
+        amount: monthlyTotal.toString(),
+        plan: currentPlan.name,
+      });
+      router.push(`/checkout?${params.toString()}`);
+      return;
+    }
+
+    // Fluxo Cartão de Crédito (Stripe)
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch("/api/checkout/stripe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          valor: monthlyTotal,
+          plano: currentPlan.name,
+          servicos: selectedServicesData.map((s) => s.name),
+          // Se tiver os dados do usuário logado no contexto/sessão, passe aqui:
+          // nome: usuario.nome,
+          // email: usuario.email,
+          // idUsuario: usuario.id,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.url) {
+        // Redireciona para o Checkout Seguro do Stripe
+        window.location.href = data.url;
+      } else {
+        alert(`Erro ao iniciar pagamento: ${data.detalhes || data.erro}`);
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error("Erro ao chamar API do Stripe:", error);
+      alert("Não foi possível conectar ao servidor de pagamentos.");
+      setIsSubmitting(false);
+    }
+  }; 
 
   return (
     <>
@@ -459,9 +504,12 @@ export default function MaylonPassPage() {
                 <button
                   type="button"
                   onClick={handleSubscribe}
+                  disabled={isSubmitting}
                   className="group mt-5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#35a989] px-5 py-4 font-bold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:brightness-95 hover:shadow-lg active:translate-y-0"
                 >
-                  <span>Assinar Maylon Pass</span>
+                  <span>
+                    {isSubmitting ? "Redirecionando..." : "Assinar Maylon Pass"}
+                  </span>
 
                   <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
