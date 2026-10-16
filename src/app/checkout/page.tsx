@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { Copy, Check, ShieldCheck, Clock } from "lucide-react";
+export const dynamic = "force-dynamic";
 
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
@@ -14,6 +15,7 @@ export default function CheckoutPage() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutos = 300 segundos
+  
 
   // Timer Countdown
   useEffect(() => {

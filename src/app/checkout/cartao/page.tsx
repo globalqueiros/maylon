@@ -4,6 +4,7 @@
 import { useSearchParams } from "next/navigation";
 import ContainerCartao from "../FormularioCartao"; 
 import { Suspense } from "react";
+export const dynamic = "force-dynamic";
 
 function CheckoutCartaoContent() {
   const searchParams = useSearchParams();
