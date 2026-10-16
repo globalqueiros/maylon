@@ -419,7 +419,7 @@ export default function Page() {
                     A partir de
                   </span>
                   <span className="text-2xl font-black text-teal-400 sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl">
-                    R$ 19,90
+                    R$ 29,90
                   </span>
                 </div>
                 <span className="mb-0 text-xs text-white sm:mb-0 sm:text-sm">
