@@ -70,3 +70,33 @@ export async function gerarPagtoStripe({
     };
   }
 }
+
+export async function criarPaymentIntent({ valor, email, plano, servicos = [], idUsuario = 'visitante' }: StripePaymentParams) {
+  try {
+    const unitAmount = Math.round(Number(valor) * 100);
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: unitAmount,
+      currency: 'brl',
+      payment_method_types: ['card'],
+      receipt_email: email, // Envia o recibo para o cliente automaticamente
+      metadata: {
+        idUsuario: String(idUsuario),
+        plano: String(plano),
+        servicosAdicionais: servicos.join(','),
+      },
+    });
+
+    return {
+      sucesso: true,
+      clientSecret: paymentIntent.client_secret,
+    };
+  } catch (error: any) {
+    console.error('Erro ao criar PaymentIntent:', error.message);
+    return {
+      sucesso: false,
+      erro: 'Falha ao iniciar pagamento transparente',
+      detalhes: error.message,
+    };
+  }
+}

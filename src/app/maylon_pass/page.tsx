@@ -167,9 +167,26 @@ export default function MaylonPassPage() {
     );
   };
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = () => {
+    // 1. Monta os parâmetros comuns (valor e plano)
+    const params = new URLSearchParams({
+      amount: monthlyTotal.toString(),
+      plan: currentPlan.name,
+    });
 
-    /* console.log("Assinar Maylon Pass", {
+    // 2. Redireciona para a rota correspondente
+    if (paymentMethod === "pix") {
+      // Vai para a tela do QR Code Pix
+      router.push(`/checkout?${params.toString()}`);
+    } else {
+      // Vai para a tela do Checkout Transparente de Cartão
+      router.push(`/checkout/cartao?${params.toString()}`);
+    }
+  };
+
+  /* const handleSubscribe = async () => {
+
+   console.log("Assinar Maylon Pass", {
       plano: currentPlan.id,
       nomePlano: currentPlan.name,
       pagamento: paymentMethod,
@@ -177,7 +194,7 @@ export default function MaylonPassPage() {
       valorPlano: planPrice,
       valorAdicional: additionalTotal,
       totalMensal: monthlyTotal,
-    }); */
+    }); 
 
     if (paymentMethod === "pix") {
       const params = new URLSearchParams({
@@ -220,7 +237,7 @@ export default function MaylonPassPage() {
       alert("Não foi possível conectar ao servidor de pagamentos.");
       setIsSubmitting(false);
     }
-  }; 
+  }; */ 
 
   return (
     <>
