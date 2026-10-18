@@ -46,8 +46,8 @@ export async function gerarPagtoStripe({
         },
       ],
       mode: 'payment', // Se quiser cobrança recorrente automática do Stripe no futuro, basta usar 'subscription'
-      success_url: 'https://auth.maylon.com.br/pagamento-sucesso',
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/maylon_pass`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/pagamento-sucesso`,//'https://auth.maylon.com.br/pagamento-sucesso',
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pagamento-cancelado`,//`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/maylon_pass`,
       metadata: {
         idUsuario: String(idUsuario),
         plano: String(plano),

@@ -24,7 +24,7 @@ function CheckoutForm({ clientSecret, valor }: { clientSecret: string; valor: nu
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "https://auth.maylon.com.br/pagamento-sucesso",
+        return_url:`${window.location.origin}/pagamento-sucesso`,//"https://auth.maylon.com.br/pagamento-sucesso",
       },
     });
 
