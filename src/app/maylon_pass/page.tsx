@@ -13,24 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-type PlanId = "basico" | "plus" | "premium";
-
-type Plan = {
-  id: PlanId;
-  name: string;
-  price: number;
-  description: string;
-  benefits: string[];
-};
-
-type AdditionalService = {
-  id: string;
-  name: string;
-  description: string;
-  href: string;
-  prices: Record<PlanId, number>;
-};
+import { additionalServices, plans, type PlanId } from "../../lib/planos";
 
 type BenefitProps = {
   number: string;
@@ -55,67 +38,6 @@ type AdditionalServiceProps = {
   href: string;
   onClick: () => void;
 };
-
-const plans: Plan[] = [
-  {
-    id: "basico",
-    name: "Básico",
-    price: 29.9,
-    description: "Para começar com as vantagens Maylon.",
-    benefits: [
-      "Condições especiais",
-      "Benefícios exclusivos",
-      "Cancelamento simples",
-    ],
-  },
-  {
-    id: "plus",
-    name: "Plus",
-    price: 59.9,
-    description: "Mais benefícios para uma experiência completa.",
-    benefits: [
-      "Todos os benefícios do Básico",
-      "Ambulância disponível",
-      "Ofertas selecionadas",
-    ],
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    price: 89.9,
-    description: "A experiência Maylon mais completa.",
-    benefits: [
-      "Todos os benefícios do Plus",
-      "Benefícios exclusivos Premium",
-      "Experiência completa",
-    ],
-  },
-];
-
-const additionalServices: AdditionalService[] = [
-  {
-    id: "maylon-home",
-    name: "Maylon Home",
-    description: "Proteção e assistência para o seu lar.",
-    href: "/maylon_pass/maylon_home",
-    prices: {
-      basico: 69.9,
-      plus: 50,
-      premium: 80,
-    },
-  },
-  {
-    id: "maylon-van-escolar",
-    name: "Maylon Van Escolar",
-    description: "Transporte escolar com mais praticidade e segurança.",
-    href: "/maylon_pass/maylon_van_escolar",
-    prices: {
-      basico: 180,
-      plus: 210,
-      premium: 320,
-    },
-  },
-];
 
 export default function MaylonPassPage() {
 
@@ -176,8 +98,10 @@ export default function MaylonPassPage() {
 
     // 2. Redireciona para a rota correspondente
     if (paymentMethod === "pix") {
-      // Vai para a tela do QR Code Pix
-      router.push(`/checkout?${params.toString()}`);
+      // Pix Automático: o servidor recalcula o valor a partir do plano + serviços
+      const pixParams = new URLSearchParams({ plan: currentPlan.id });
+      if (selectedServices.length > 0) pixParams.set("services", selectedServices.join(","));
+      router.push(`/checkout/pix-automatico?${pixParams.toString()}`);
     } else {
       // Vai para a tela do Checkout Transparente de Cartão
       router.push(`/checkout/cartao?${params.toString()}`);
@@ -373,8 +297,8 @@ export default function MaylonPassPage() {
                   <PaymentOption
                     selected={paymentMethod === "pix"}
                     icon={<QrCode className="h-5 w-5" />}
-                    title="Pix"
-                    description="Autorização + 1ª mensalidade"
+                    title="Pix Automático"
+                    description="Autorize uma vez, débito mensal automático"
                     onClick={() => setPaymentMethod("pix")}
                   />
                 </div>
@@ -513,7 +437,7 @@ export default function MaylonPassPage() {
                     <span className="text-xs font-semibold text-slate-700">
                       {paymentMethod === "card"
                         ? "Cartão de Crédito"
-                        : "Pix"}
+                        : "Pix Automático · R$ 0,00 hoje"}
                     </span>
                   </div>
                 </div>
