@@ -45,7 +45,11 @@ function CheckoutForm({ clientSecret, valor }: { clientSecret: string; valor: nu
       
       <button
         disabled={isProcessing || !stripe || !elements}
+<<<<<<< HEAD
         className="w-full cursor-pointer bg-[#35a989] text-white py-4 rounded-2xl font-bold hover:brightness-95 disabled:opacity-50"
+=======
+        className="w-full bg-[#35a989] text-white py-4 rounded-2xl font-bold hover:brightness-95 disabled:opacity-50"
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
       >
         {isProcessing ? "Processando..." : `Pagar R$ ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
       </button>

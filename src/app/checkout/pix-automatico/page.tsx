@@ -18,9 +18,15 @@ import {
   Clock,
   Copy,
   Loader2,
+<<<<<<< HEAD
   LockKeyhole,
   RefreshCw,
   ShieldCheck,
+=======
+  RefreshCw,
+  ShieldCheck,
+  Smartphone,
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
   XCircle,
 } from "lucide-react";
 import { calcularAssinatura } from "../../../lib/planos";
@@ -57,6 +63,7 @@ const MENSAGEM_ENCERRADO: Record<string, { titulo: string; texto: string }> = {
   },
 };
 
+<<<<<<< HEAD
 const ETAPAS = [
   { id: "dados", rotulo: "Seus dados" },
   { id: "autorizar", rotulo: "Autorização" },
@@ -66,6 +73,8 @@ const ETAPAS = [
 const INPUT =
   "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#35a989] focus:ring-4 focus:ring-[#35a989]/15";
 
+=======
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
 function CheckoutPixAutomatico() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -209,6 +218,7 @@ function CheckoutPixAutomatico() {
   // ---------------------------------------------------------------------------
   if (!resumo && !assinaturaId) {
     return (
+<<<<<<< HEAD
       <Pagina>
         <div className="mx-auto max-w-md rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm">
           <h1 className="text-xl font-bold text-slate-900">Plano não encontrado</h1>
@@ -221,12 +231,22 @@ function CheckoutPixAutomatico() {
           </Link>
         </div>
       </Pagina>
+=======
+      <Casca>
+        <h1 className="text-xl font-black text-slate-900">Plano não encontrado</h1>
+        <p className="mt-2 text-sm text-slate-500">Volte e escolha um plano do Maylon Pass.</p>
+        <Link href="/maylon_pass" className="mt-6 inline-block font-bold text-[#35a989] hover:underline">
+          Ver planos
+        </Link>
+      </Casca>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
     );
   }
 
   // O valor confirmado pelo servidor tem prioridade sobre o calculado no navegador
   const valorMensal = valorServidor ?? resumo?.total ?? 0;
   const diaCobranca = proximaCobranca ? Number(proximaCobranca.slice(8, 10)) : null;
+<<<<<<< HEAD
   const etapaAtual = etapa === "encerrado" ? "autorizar" : etapa;
   const indiceEtapa = ETAPAS.findIndex((e) => e.id === etapaAtual);
 
@@ -486,6 +506,185 @@ function CheckoutPixAutomatico() {
         </aside>
       </div>
     </Pagina>
+=======
+
+  return (
+    <Casca>
+      {etapa === "dados" && (
+        <>
+          <Cabecalho
+            titulo="Assinar com Pix Automático"
+            texto="Você autoriza uma única vez no app do seu banco. Depois, a mensalidade é debitada sozinha na data combinada."
+          />
+
+          <ResumoValores valorMensal={valorMensal} plano={resumo?.plano.name} />
+
+          <div className="mt-6 space-y-4 text-left">
+            <Campo label="Nome completo do titular da conta">
+              <input
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                autoComplete="name"
+                placeholder="Como está no seu banco"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#35a989] focus:bg-white focus-visible:ring-2 focus-visible:ring-[#35a989]/30"
+              />
+            </Campo>
+            <Campo
+              label="CPF do titular da conta"
+              ajuda={cpf.length >= 14 && !cpfOk ? "CPF inválido" : "O banco confere se o CPF é o mesmo da conta que vai pagar."}
+              erro={cpf.length >= 14 && !cpfOk}
+            >
+              <input
+                value={cpf}
+                onChange={(e) => setCpf(mascararCpf(e.target.value))}
+                inputMode="numeric"
+                placeholder="000.000.000-00"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#35a989] focus:bg-white focus-visible:ring-2 focus-visible:ring-[#35a989]/30"
+              />
+            </Campo>
+          </div>
+
+          {erro && (
+            <p role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-left text-sm text-red-700">
+              {erro}
+            </p>
+          )}
+
+          <button
+            type="button"
+            onClick={gerarAutorizacao}
+            disabled={!cpfOk || !nomeOk || enviando}
+            className="group mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#35a989] px-5 py-4 font-bold text-white shadow-sm transition-all hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {enviando ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
+            {enviando ? "Gerando QR Code..." : "Gerar QR Code de autorização"}
+            {!enviando && <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />}
+          </button>
+
+          <p className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-400">
+            <ShieldCheck className="h-4 w-4" />
+            Você pode cancelar quando quiser pelo app do seu banco.
+          </p>
+        </>
+      )}
+
+      {etapa === "autorizar" && (
+        <>
+          <Cabecalho
+            titulo="Autorize no app do seu banco"
+            texto="Escaneie o QR Code ou use o Pix Copia e Cola. Nada será cobrado agora."
+          />
+
+          {emv ? (
+            <div className="mb-6 inline-block rounded-3xl border-2 border-slate-100 bg-white p-4 shadow-sm">
+              <QRCodeSVG value={emv} size={208} fgColor="#0f2b23" marginSize={1} />
+            </div>
+          ) : (
+            <div className="mb-6 flex h-[240px] items-center justify-center">
+              <Loader2 className="h-10 w-10 animate-spin text-[#35a989]" />
+            </div>
+          )}
+
+          <ResumoValores
+            valorMensal={valorMensal}
+            plano={resumo?.plano.name}
+            diaCobranca={diaCobranca}
+            primeiraCobranca={proximaCobranca}
+          />
+
+          <ol className="mt-6 space-y-3 text-left text-sm text-slate-600">
+            <Passo n={1}>Abra o app do seu banco e entre na área Pix.</Passo>
+            <Passo n={2}>Escolha ler QR Code ou Pix Copia e Cola.</Passo>
+            <Passo n={3}>Confira o valor mensal e a frequência e toque em Autorizar.</Passo>
+          </ol>
+
+          <div className="mt-6 text-left">
+            <p className="mb-2 ml-1 text-xs font-semibold text-slate-500">Pix Copia e Cola</p>
+            <div className="flex gap-2">
+              <input
+                readOnly
+                value={emv}
+                aria-label="Código Pix Copia e Cola"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500 outline-none"
+              />
+              <button
+                type="button"
+                onClick={copiar}
+                disabled={!emv}
+                aria-label="Copiar código"
+                className="flex shrink-0 items-center justify-center rounded-xl bg-[#35a989] px-4 py-3 text-white transition-colors hover:bg-[#27866c]"
+              >
+                {copiado ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-[#35a989]/10 p-3 text-sm font-bold text-[#27866c]"
+            aria-live="polite"
+          >
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Aguardando sua autorização
+            {segundos !== null && segundos > 0 && (
+              <span className="ml-1 flex items-center gap-1 font-semibold text-[#27866c]/80">
+                <Clock className="h-4 w-4" />
+                {String(Math.floor(segundos / 60)).padStart(2, "0")}:{String(segundos % 60).padStart(2, "0")}
+              </span>
+            )}
+          </div>
+        </>
+      )}
+
+      {etapa === "ativo" && (
+        <>
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#35a989]/10">
+            <CheckCircle2 className="h-10 w-10 text-[#35a989]" />
+          </div>
+          <h1 className="mb-3 text-2xl font-black text-slate-900">Assinatura ativa!</h1>
+          <p className="mb-6 text-sm leading-relaxed text-slate-500">
+            Seu Maylon Pass já está liberado. A mensalidade será debitada automaticamente via Pix,
+            sem precisar gerar QR Code todo mês.
+          </p>
+
+          <div className="mb-8 space-y-3 rounded-2xl bg-slate-50 p-4 text-left text-sm">
+            <Linha rotulo="Valor mensal" valor={brl(valorMensal || 0)} />
+            {proximaCobranca && <Linha rotulo="Próximo débito" valor={dataBR(proximaCobranca)} />}
+            <Linha rotulo="Forma de pagamento" valor="Pix Automático" />
+          </div>
+
+          <Link
+            href="/"
+            className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#35a989] px-5 py-4 font-bold text-white shadow-sm transition-all hover:brightness-95"
+          >
+            Ir para o meu painel
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </>
+      )}
+
+      {etapa === "encerrado" && (
+        <>
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50">
+            <XCircle className="h-10 w-10 text-red-500" />
+          </div>
+          <h1 className="mb-3 text-2xl font-black text-slate-900">
+            {MENSAGEM_ENCERRADO[status]?.titulo ?? "Autorização não concluída"}
+          </h1>
+          <p className="mb-8 text-sm leading-relaxed text-slate-500">
+            {MENSAGEM_ENCERRADO[status]?.texto ?? "Gere um novo QR Code para continuar."}
+          </p>
+          <button
+            type="button"
+            onClick={recomecar}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#35a989] px-5 py-4 font-bold text-white shadow-sm transition-all hover:brightness-95"
+          >
+            <RefreshCw className="h-5 w-5" />
+            Gerar novo QR Code
+          </button>
+        </>
+      )}
+    </Casca>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
   );
 }
 
@@ -493,6 +692,7 @@ function CheckoutPixAutomatico() {
 // Componentes de apoio
 // -----------------------------------------------------------------------------
 
+<<<<<<< HEAD
 function Pagina({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -550,6 +750,60 @@ function Titulo({ titulo, texto }: { titulo: string; texto: string }) {
     <div>
       <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-[28px]">{titulo}</h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">{texto}</p>
+=======
+function Casca({ children }: { children: ReactNode }) {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f7faf9] p-4 text-slate-900">
+      <div className="w-full max-w-md rounded-[2rem] border border-slate-100 bg-white p-8 text-center shadow-xl">
+        {children}
+      </div>
+    </main>
+  );
+}
+
+function Cabecalho({ titulo, texto }: { titulo: string; texto: string }) {
+  return (
+    <>
+      <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#1c5a4b] shadow-md">
+        <Smartphone className="h-6 w-6 text-white" />
+      </div>
+      <h1 className="mb-2 text-2xl font-black text-slate-900">{titulo}</h1>
+      <p className="mb-6 text-sm leading-relaxed text-slate-500">{texto}</p>
+    </>
+  );
+}
+
+function ResumoValores({
+  valorMensal,
+  plano,
+  diaCobranca,
+  primeiraCobranca,
+}: {
+  valorMensal: number;
+  plano?: string;
+  diaCobranca?: number | null;
+  primeiraCobranca?: string | null;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-3 text-left">
+      <div className="rounded-2xl border-2 border-[#35a989] bg-[#35a989]/5 p-4">
+        <p className="text-xs font-semibold text-slate-500">Você paga hoje</p>
+        <p className="mt-1 text-2xl font-black text-[#35a989]">R$ 0,00</p>
+        <p className="mt-1 text-[11px] leading-4 text-slate-400">Apenas autorização</p>
+      </div>
+      <div className="rounded-2xl border border-slate-200 p-4">
+        <p className="text-xs font-semibold text-slate-500">Débito mensal</p>
+        <p className="mt-1 text-2xl font-black text-slate-900">{brl(valorMensal)}</p>
+        <p className="mt-1 flex items-center gap-1 text-[11px] leading-4 text-slate-400">
+          <CalendarClock className="h-3 w-3 shrink-0" />
+          {diaCobranca
+            ? `Todo dia ${diaCobranca}${primeiraCobranca ? `, a partir de ${dataBR(primeiraCobranca)}` : ""}`
+            : plano
+              ? `Maylon Pass ${plano}`
+              : "Mensal"}
+        </p>
+      </div>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
     </div>
   );
 }
@@ -567,10 +821,19 @@ function Campo({
 }) {
   return (
     <label className="block">
+<<<<<<< HEAD
       <span className="mb-2 block text-sm font-medium text-slate-700">{label}</span>
       {children}
       {ajuda && (
         <span className={`mt-2 block text-xs ${erro ? "text-red-600" : "text-slate-500"}`}>{ajuda}</span>
+=======
+      <span className="mb-1.5 ml-1 block text-xs font-semibold text-slate-600">{label}</span>
+      {children}
+      {ajuda && (
+        <span className={`ml-1 mt-1.5 block text-[11px] ${erro ? "text-red-600" : "text-slate-400"}`}>
+          {ajuda}
+        </span>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
       )}
     </label>
   );
@@ -579,19 +842,32 @@ function Campo({
 function Passo({ n, children }: { n: number; children: ReactNode }) {
   return (
     <li className="flex items-start gap-3">
+<<<<<<< HEAD
       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#35a989]/10 text-xs font-bold text-[#1f7a61]">
         {n}
       </span>
       <span className="pt-0.5 leading-relaxed">{children}</span>
+=======
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#35a989]/10 text-xs font-bold text-[#35a989]">
+        {n}
+      </span>
+      <span className="pt-0.5">{children}</span>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
     </li>
   );
 }
 
 function Linha({ rotulo, valor }: { rotulo: string; valor: string }) {
   return (
+<<<<<<< HEAD
     <div className="flex items-center justify-between gap-3 px-4 py-3.5">
       <dt className="text-slate-500">{rotulo}</dt>
       <dd className="font-semibold text-slate-900">{valor}</dd>
+=======
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-slate-500">{rotulo}</span>
+      <strong className="text-slate-900">{valor}</strong>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
     </div>
   );
 }
@@ -600,7 +876,11 @@ export default function CheckoutPixAutomaticoPage() {
   return (
     <Suspense
       fallback={
+<<<<<<< HEAD
         <div className="flex min-h-screen items-center justify-center bg-slate-50 text-sm text-slate-500">
+=======
+        <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
           Carregando...
         </div>
       }
@@ -608,4 +888,8 @@ export default function CheckoutPixAutomaticoPage() {
       <CheckoutPixAutomatico />
     </Suspense>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab

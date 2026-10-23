@@ -1,4 +1,13 @@
 "use client";
+<<<<<<< HEAD
+=======
+
+// src/app/checkout/FormularioAssinaturaCartao.tsx
+// Assinatura mensal no cartão (Stripe Billing) com o fluxo "deferred intent":
+// o PaymentElement aparece na hora e a assinatura só é criada no servidor quando
+// o cliente clica em Assinar. Assim não ficam assinaturas incompletas abandonadas.
+
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
 import { useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
@@ -21,7 +30,12 @@ function Formulario({ resumo }: Props) {
   const [email, setEmail] = useState("");
   const [processando, setProcessando] = useState(false);
   const [erro, setErro] = useState("");
+<<<<<<< HEAD
   
+=======
+  // Guardado após a 1ª tentativa: se o cartão for recusado, a nova tentativa usa a
+  // MESMA assinatura em vez de criar outra
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -144,11 +158,19 @@ function Formulario({ resumo }: Props) {
 
       <div className="rounded-2xl bg-slate-50 p-4 text-sm">
         <div className="flex items-center justify-between">
+<<<<<<< HEAD
           <span className="text-slate-500 text-sm">Cobrança hoje</span>
           <strong>{brl(resumo.total)}</strong>
         </div>
         <div className="mt-1 flex items-center justify-between">
           <span className="text-slate-500 text-sm">Depois</span>
+=======
+          <span className="text-slate-500">Cobrança hoje</span>
+          <strong>{brl(resumo.total)}</strong>
+        </div>
+        <div className="mt-1 flex items-center justify-between">
+          <span className="text-slate-500">Depois</span>
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
           <strong>{brl(resumo.total)} / mês</strong>
         </div>
         <p className="mt-2 text-[11px] leading-4 text-slate-400">
@@ -159,7 +181,11 @@ function Formulario({ resumo }: Props) {
       <button
         type="submit"
         disabled={processando || !stripe || !elements}
+<<<<<<< HEAD
         className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#35a989] py-4 font-bold text-white transition hover:brightness-95 disabled:opacity-50"
+=======
+        className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#35a989] py-4 font-bold text-white transition hover:brightness-95 disabled:opacity-50"
+>>>>>>> 786e4627bf6f264c0aa476b88f39103b8d99b8ab
       >
         {processando && <Loader2 className="h-5 w-5 animate-spin" />}
         {processando ? "Processando..." : `Assinar por ${brl(resumo.total)}/mês`}
