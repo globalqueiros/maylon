@@ -90,21 +90,14 @@ export default function MaylonPassPage() {
   };
 
   const handleSubscribe = () => {
-    // 1. Monta os parâmetros comuns (valor e plano)
-    const params = new URLSearchParams({
-      amount: monthlyTotal.toString(),
-      plan: currentPlan.name,
-    });
+    // Envia só o plano e os serviços: o valor é sempre recalculado no servidor
+    const params = new URLSearchParams({ plan: currentPlan.id });
+    if (selectedServices.length > 0) params.set("services", selectedServices.join(","));
 
-    // 2. Redireciona para a rota correspondente
     if (paymentMethod === "pix") {
-      // Pix Automático: o servidor recalcula o valor a partir do plano + serviços
-      const pixParams = new URLSearchParams({ plan: currentPlan.id });
-      if (selectedServices.length > 0) pixParams.set("services", selectedServices.join(","));
-      router.push(`/checkout/pix-automatico?${pixParams.toString()}`);
+      router.push(`/checkout/pix-automatico?${params.toString()}`); // Pix Automático
     } else {
-      // Vai para a tela do Checkout Transparente de Cartão
-      router.push(`/checkout/cartao?${params.toString()}`);
+      router.push(`/checkout/cartao?${params.toString()}`); // assinatura recorrente no cartão
     }
   };
 
